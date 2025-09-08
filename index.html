@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Untitled</title>
+  
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Study Tracker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg1: #ffe6f0;
+      --bg2: #f3e8ff;
+      --card: #fff;
+      --border: #ff99cc;
+      --accent: #ff66b2;
+      --accent-strong: #d63384;
+      --accent-dark: #cc0066;
+      --thead: #ffb3d9;
+      --text: #3a2b33;
+      --shadow: rgba(214, 51, 132, 0.15);
+    }
+    * { box-sizing: border-box; margin:0; padding:0; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: linear-gradient(135deg, var(--bg1), var(--bg2));
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 24px;
+      color: var(--text);
+    }
+    .app {
+      width: min(960px, 100%);
+      background: var(--card);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 6px 20px var(--shadow);
+      border: 2px solid var(--border);
+      position: relative;
+    }
+    h1 {
+      font-weight: 800;
+      color: var(--accent-strong);
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+    .subtle { color: #7a5b69; margin-bottom: 16px; }
+    .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 16px; }
+    .input {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      background: var(--card);
+      border: 2px solid var(--border);
+      padding: 10px 12px;
+      border-radius: 12px;
+      min-width: 180px;
+      box-shadow: 0 2px 8px var(--shadow);
+    }
+    label { font-size: .85rem; color: #7a5b69; }
+    input[type="text"], input[type="number"] {
+      border: 1px solid #ffd1e6;
+      border-radius: 10px;
+      padding: 8px 10px;
+      outline: none;
+    }
+    input[type="number"] { width: 110px; }
+    .btn {
+      border: none;
+      border-radius: 14px;
+      padding: 10px 16px;
+      font-weight: 700;
+      cursor: pointer;
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 4px 10px rgba(255, 102, 178, .25);
+      transition: .2s transform ease, .2s filter ease, .2s box-shadow ease;
+    }
+    .btn:hover { filter: brightness(1.05); box-shadow: 0 6px 12px rgba(255,102,178,.35); }
+    .btn:active { transform: translateY(1px); }
+    .btn.secondary { background: #ffd1e6; color: #7a5b69; font-weight: 700; }
+    .section {
+      margin-top: 18px;
+      padding: 14px;
+      border: 2px dashed var(--border);
+      border-radius: 16px;
+      background: var(--card);
+      box-shadow: 0 2px 8px var(--shadow);
+      position: relative;
+    }
+    .section h2 { margin-bottom: 8px; color: var(--accent-dark); font-size: 1.1rem; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 2px solid var(--border);
+      background: var(--card);
+      box-shadow: 0 2px 6px var(--shadow);
+    }
+    th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #ffe0ef; }
+    th { background: var(--thead); color: #6a294a; font-weight: 800; }
+    tr:last-child td { border-bottom: none; }
+    td.icon { font-size: 1.2rem; text-align:center; }
+    .current {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--accent-dark);
+      background: var(--card);
+      border: 2px solid var(--border);
+      padding: 12px 14px;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px var(--shadow);
+    }
+    .controls { display: flex; gap: 10px; flex-wrap: wrap; }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: #fff;
+      border: 2px solid var(--border);
+      font-weight: 600;
+      box-shadow: 0 2px 6px var(--shadow);
+    }
+
+    /* Focus overlay */
+    #focusOverlay {
+      position: fixed;
+      top:0; left:0; right:0; bottom:0;
+      background: rgba(255,230,240,0.97);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      flex-direction: column;
+    }
+    #focusOverlay h1 {
+      font-size: 2rem; color: var(--accent-dark); margin-bottom: 10px;
+    }
+    #focusOverlay p { font-size: 1.2rem; color: #5a3b4c; margin-bottom: 20px; }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <h1>⏳ Study Tracker</h1>
+    <p class="subtle">Plan your subjects and track your study time with precision.</p>
+
+    <div class="row">
+      <div class="input">
+        <label for="subject">Subject</label>
+        <input id="subject" type="text" placeholder="e.g., Math" />
+      </div>
+      <div class="input">
+        <label for="planned">Planned Minutes (today)</label>
+        <input id="planned" type="number" min="1" step="1" placeholder="e.g., 45" />
+      </div>
+      <button class="btn" id="addBtn">Add Subject</button>
+      <div class="input">
+        <label for="breakMin">Break Minutes</label>
+        <input id="breakMin" type="number" min="0" step="1" value="5" />
+      </div>
+      <div class="pill">💡 Keep this tab active for best timing accuracy.</div>
+    </div>
+
+    <div class="section">
+      <h2>Plan for Today</h2>
+      <table id="planTable">
+        <thead>
+          <tr>
+            <th></th> <!-- for icons -->
+            <th>Subject</th>
+            <th>Planned (min)</th>
+            <th>Studied (min)</th>
+            <th>Remaining (min)</th>
+          </tr>
+        </thead>
+        <tbody id="planBody"></tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <h2>Current Task</h2>
+      <div class="row controls" style="margin-bottom:10px">
+        <button class="btn" id="startBtn">Start Session</button>
+        <button class="btn secondary" id="pauseBtn">Pause</button>
+        <button class="btn secondary" id="resetBtn">Reset</button>
+        <button class="btn" id="focusBtn">Focus Mode</button>
+      </div>
+      <div class="current" id="display">No task running.</div>
+    </div>
+  </div>
+
+  <div id="focusOverlay">
+    <h1>📚 Focus Mode</h1>
+    <p>Stay on task — distractions are locked out!</p>
+    <button class="btn secondary" id="exitFocus">Exit Focus Mode</button>
+  </div>
+
+  <script>
+    const subjects=[], planBody=document.getElementById('planBody'), display=document.getElementById('display');
+    let queue=[], idx=-1, timerId=null, startTime=0, lastTick=0, durationMs=0, elapsedMs=0, baseStudiedAtStart=0, paused=false, pauseElapsed=0;
+
+    function mins(ms){return ms/60000;}
+    function clamp(n,lo,hi){return Math.max(lo,Math.min(hi,n));}
+    function fmtClock(ms){if(ms<0) ms=0; const t=Math.floor(ms), s=Math.floor(t/1000), m=Math.floor(s/60); return `${String(m).padStart(2,'0')}:${String(s%60).padStart(2,'0')}.${String(t%1000).padStart(3,'0')}`;}
+
+    function renderPlan(){
+      planBody.innerHTML='';
+      for(const s of subjects){
+        const tr=document.createElement('tr');
+        let icon='📚';
+        const n=s.name.toLowerCase();
+        if(n.includes('math')) icon='🧮';
+        else if(n.includes('physics')) icon='📐';
+        else if(n.includes('cs')||n.includes('computer')||n.includes('it')) icon='💻';
+        else if(n.includes('chem')) icon='🧪';
+        else if(n.includes('bio')) icon='🔬';
+        else if(n.includes('eng')) icon='✍️';
+
+        tr.innerHTML=`<td class="icon">${icon}</td><td>${s.name}</td><td>${Math.round(mins(s.plannedMs))}</td><td>${Math.floor(mins(s.studiedMs))}</td><td>${Math.max(0,Math.round(mins(s.plannedMs-s.studiedMs)))}</td>`;
+        planBody.appendChild(tr);
+      }
+    }
+
+    function buildQueue(){
+      const breakMin=parseInt(document.getElementById('breakMin').value)||0;
+      queue=[];
+      subjects.forEach((s,i)=>{
+        queue.push({kind:'study',subject:s});
+        if(i<subjects.length-1 && breakMin>0) queue.push({kind:'break',durationMs:breakMin*60000});
+      });
+    }
+
+    function stopTimer(){ if(timerId){ clearInterval(timerId); timerId=null; } }
+
+    function startNext(){
+      stopTimer(); idx++;
+      if(idx>=queue.length){ display.textContent='🎉 Session complete!'; return; }
+      const item=queue[idx];
+      startTime=Date.now(); lastTick=startTime; elapsedMs=0; paused=false; baseStudiedAtStart=0;
+
+      if(item.kind==='study'){
+        const s=item.subject;
+        const remaining=Math.max(0,s.plannedMs-s.studiedMs);
+        if(remaining===0){ startNext(); return; }
+        durationMs=remaining; baseStudiedAtStart=s.studiedMs;
+        display.textContent=`Studying ${s.name} — ${fmtClock(durationMs)} remaining`;
+      } else { durationMs=item.durationMs; display.textContent=`Break — ${fmtClock(durationMs)} remaining 🧘`; }
+
+      timerId=setInterval(tick,100);
+    }
+
+    function tick(){
+      if(paused) return;
+      const now=Date.now(), delta=now-lastTick; lastTick=now; elapsedMs+=delta;
+      const cur=queue[idx], remain=clamp(durationMs-elapsedMs,0,durationMs);
+
+      if(cur.kind==='study'){
+        cur.subject.studiedMs=clamp(baseStudiedAtStart+elapsedMs,0,cur.subject.plannedMs);
+        renderPlan();
+        display.textContent=`Studying ${cur.subject.name} — ${fmtClock(remain)} remaining`;
+      } else display.textContent=`Break — ${fmtClock(remain)} remaining 🧘`;
+
+      if(elapsedMs>=durationMs){ stopTimer(); if(cur.kind==='study'){cur.subject.studiedMs=Math.min(cur.subject.studiedMs,cur.subject.plannedMs); renderPlan();} startNext(); }
+    }
+
+    function resetAll(){
+      stopTimer(); queue=[]; idx=-1; subjects.forEach(s=>s.studiedMs=0); renderPlan(); display.textContent='No task running.';
+    }
+
+    document.getElementById('addBtn').addEventListener('click',()=>{
+      const name=(document.getElementById('subject').value||'').trim();
+      const planned=parseInt(document.getElementById('planned').value,10);
+      if(!name){alert('Please enter a subject'); return;}
+      if(!planned||planned<=0){alert('Please enter valid planned minutes'); return;}
+      subjects.push({name, plannedMs:planned*60000, studiedMs:0});
+      document.getElementById('subject').value=''; document.getElementById('planned').value='';
+      renderPlan();
+    });
+
+    document.getElementById('startBtn').addEventListener('click',()=>{
+      if(subjects.length===0){alert('Add at least one subject'); return;}
+      buildQueue(); idx=-1; startNext();
+    });
+
+    document.getElementById('pauseBtn').addEventListener('click',()=>{
+      paused=!paused;
+      document.getElementById('pauseBtn').textContent=paused?'Resume':'Pause';
+    });
+
+    document.getElementById('resetBtn').addEventListener('click',resetAll);
+
+    document.getElementById('focusBtn').addEventListener('click',()=>{ document.getElementById('focusOverlay').style.display='flex'; });
+    document.getElementById('exitFocus').addEventListener('click',()=>{ document.getElementById('focusOverlay').style.display='none'; });
+
+    renderPlan();
+  </script>
+</body>
+</html>
+<!-- partial -->
+  
+</body>
+</html>
