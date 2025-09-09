@@ -7,106 +7,183 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg1:#ffe6f0; --bg2:#f3e8ff; --card:#fff; --border:#ff99cc;
-  --accent:#ff66b2; --accent-strong:#d63384; --accent-dark:#cc0066;
-  --thead:#ffb3d9; --text:#3a2b33; --shadow:rgba(214,51,132,0.15);
-  --warn:#ff0000; --alert:#ffa500;
+  --bg1: #ffe6f0;        /* baby pink */
+  --bg2: #e6dbff;        /* soft lilac */
+  --card: #fff;
+  --border: #e9d2ff;
+  --accent: #b084ff;     /* lilac accent */
+  --accent-strong: #8a2be2;
+  --accent-dark: #5a2b8a;
+  --thead: #f3d9ff;
+  --text: #3a2b33;
+  --shadow: rgba(90,34,138,0.10);
+  --warn: #5a2b8a;       /* last-10-sec color (gentle lilac) */
+  --alert: #b084ff;      /* 1-min warning */
 }
-*{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-  background:linear-gradient(135deg,var(--bg1),var(--bg2)); min-height:100vh;
-  display:flex;justify-content:center;padding:24px;color:var(--text);}
-.app{width:min(960px,100%);background:var(--card);border-radius:20px;padding:24px;
-  box-shadow:0 6px 20px var(--shadow);border:2px solid var(--border);position:relative;}
-h1{font-weight:800;color:var(--accent-strong);font-size:2rem;margin-bottom:12px;}
-.subtle{color:#7a5b69;margin-bottom:16px;}
-.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px;}
-.input{display:flex;flex-direction:column;gap:6px;background:var(--card);border:2px solid var(--border);
-  padding:10px 12px;border-radius:12px;min-width:180px;box-shadow:0 2px 8px var(--shadow);}
-label{font-size:.85rem;color:#7a5b69;}
-input[type=text],input[type=number]{border:1px solid #ffd1e6;border-radius:10px;padding:8px 10px;outline:none;}
-input[type=number]{width:110px;}
-.btn{border:none;border-radius:14px;padding:10px 16px;font-weight:700;cursor:pointer;
-  background:var(--accent);color:#fff;box-shadow:0 4px 10px rgba(255,102,178,.25);
-  transition:.2s transform ease,.2s filter ease,.2s box-shadow ease;}
-.btn:hover{filter:brightness(1.05);box-shadow:0 6px 12px rgba(255,102,178,.35);}
-.btn:active{transform:translateY(1px);}
-.btn.secondary{background:#ffd1e6;color:#7a5b69;font-weight:700;}
-.section{margin-top:18px;padding:14px;border:2px dashed var(--border);border-radius:16px;
-  background:var(--card);box-shadow:0 2px 8px var(--shadow);position:relative;}
-.section h2{margin-bottom:8px;color:var(--accent-dark);font-size:1.1rem;}
-table{width:100%;border-collapse:collapse;border-radius:12px;overflow:hidden;
-  border:2px solid var(--border);background:var(--card);box-shadow:0 2px 6px var(--shadow);}
-th,td{padding:10px 12px;text-align:left;border-bottom:1px solid #ffe0ef;}
-th{background:var(--thead);color:#6a294a;font-weight:800;}
-tr:last-child td{border-bottom:none;}
-td.icon{font-size:1.2rem;text-align:center;}
-td.delete-col{width:30px;text-align:center;}
-.current{font-size:1.15rem;font-weight:800;background:var(--card);border:2px solid var(--border);
-  padding:12px 14px;border-radius:12px;box-shadow:0 2px 6px var(--shadow);}
-.controls{display:flex;gap:10px;flex-wrap:wrap;}
-.pill{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;
-  background:#fff;border:2px solid var(--border);font-weight:600;box-shadow:0 2px 6px var(--shadow);}
-.progress-bar-container{background:#ffe0ef;border-radius:8px;overflow:hidden;height:10px;margin-top:4px;}
-.progress-bar{height:10px;background:var(--accent);width:0%;transition: width 0.2s linear;}
-.warn{color:var(--warn);font-weight:800;font-size:1.4rem;transition:color 0.2s,font-size 0.2s;}
-.alert{color:var(--alert);font-weight:700;}
-#focusOverlay{position:fixed;top:0;left:0;right:0;bottom:0;background: rgba(255,230,240,0.97);
-  display:none;align-items:center;justify-content:center;z-index:9999;flex-direction:column;pointer-events:all;text-align:center;}
-#focusOverlay h1{font-size:2rem;color:var(--accent-dark);margin-bottom:6px;}
-#focusOverlay h2{font-size:1.2rem;color:#5a3b4c;margin-bottom:10px;}
-#focusOverlay p{font-size:1.3rem;color:#5a3b4c;margin-bottom:20px;text-align:center;}
+
+* { box-sizing: border-box; margin:0; padding:0; }
+body {
+  font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  background: linear-gradient(135deg, var(--bg1), var(--bg2));
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 24px;
+  color: var(--text);
+}
+
+.app {
+  width: min(960px, 100%);
+  background: var(--card);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 6px 20px var(--shadow);
+  border: 2px solid var(--border);
+  position: relative;
+}
+
+h1 { font-weight: 800; color: var(--accent-strong); font-size: 2rem; margin-bottom: 12px; }
+.subtle { color: #7a5b69; margin-bottom: 16px; }
+
+.row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 16px; }
+.input {
+  display: flex; flex-direction: column; gap: 6px;
+  background: var(--card); border: 2px solid var(--border);
+  padding: 10px 12px; border-radius: 12px; min-width: 180px;
+  box-shadow: 0 2px 8px var(--shadow);
+}
+label { font-size: .85rem; color: #7a5b69; }
+input[type="text"], input[type="number"] {
+  border: 1px solid #ffd1e6; border-radius: 10px; padding: 8px 10px; outline: none;
+}
+input[type="number"] { width: 110px; }
+
+.btn {
+  border: none; border-radius: 14px; padding: 10px 16px; font-weight: 700; cursor: pointer;
+  background: var(--accent); color: #fff;
+  box-shadow: 0 4px 10px rgba(136,77,255,0.15);
+  transition: .18s transform ease, .18s filter ease, .18s box-shadow ease;
+}
+.btn:hover { filter: brightness(1.03); box-shadow: 0 6px 12px rgba(136,77,255,0.18); }
+.btn:active { transform: translateY(1px); }
+.btn.secondary { background: #f3e8ff; color: #5a3b4c; font-weight: 700; }
+
+.section {
+  margin-top: 18px; padding: 14px; border: 2px dashed var(--border); border-radius: 16px;
+  background: var(--card); box-shadow: 0 2px 8px var(--shadow); position: relative;
+}
+.section h2 { margin-bottom: 8px; color: var(--accent-dark); font-size: 1.1rem; }
+
+table {
+  width: 100%; border-collapse: collapse; border-radius: 12px; overflow: hidden;
+  border: 2px solid var(--border); background: var(--card); box-shadow: 0 2px 6px var(--shadow);
+}
+th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #ffe0ef; }
+th { background: var(--thead); color: #6a294a; font-weight: 800; }
+tr:last-child td { border-bottom: none; }
+td.icon { font-size: 1.2rem; text-align:center; }
+td.delete-col { width: 30px; text-align: center; }
+
+.current {
+  font-size: 1.15rem; font-weight: 800; background: var(--card); border: 2px solid var(--border);
+  padding: 12px 14px; border-radius: 12px; box-shadow: 0 2px 6px var(--shadow);
+}
+
+.controls { display:flex; gap:10px; flex-wrap:wrap; }
+.pill { display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px;
+  background:#fff; border:2px solid var(--border); font-weight:600; box-shadow:0 2px 6px var(--shadow); }
+
+.progress-bar-container { background: rgba(240,230,255,0.8); border-radius:8px; overflow:hidden; height:10px; margin-top:6px; }
+.progress-bar { height:10px; background: linear-gradient(90deg, var(--bg1), var(--bg2)); width:0%; transition: width 0.18s linear; }
+
+.warn { color: var(--warn); font-weight:800; font-size:1.4rem; transition: color .2s, font-size .2s; }
+.alert { color: var(--alert); font-weight:700; }
+
+#focusOverlay {
+  position: fixed; top:0; left:0; right:0; bottom:0;
+  background: linear-gradient(135deg, var(--bg1), var(--bg2));
+  display: none; align-items: center; justify-content: center; z-index: 9999;
+  flex-direction: column; pointer-events: all; text-align: center;
+}
+#focusOverlay h1 { font-size: 2rem; color: var(--accent-dark); margin-bottom: 6px; }
+#focusOverlay h2 { font-size: 1.1rem; color: #5a3b4c; margin-bottom: 10px; }
+#focusOverlay p { font-size: 1.2rem; color: #5a3b4c; margin-bottom: 18px; text-align:center; }
+
+/* small responsiveness */
+@media (max-width:520px){
+  .row{ flex-direction: column; align-items: stretch; }
+  input[type="number"]{ width:100%; }
+  .input { min-width: auto; }
+}
 </style>
 </head>
 <body>
 <div class="app">
-<h1>⏳ Study Tracker</h1>
-<p class="subtle">Plan your subjects and track your study time with precision.</p>
+  <h1>⏳ Study Tracker</h1>
+  <p class="subtle">Plan your subjects and track your study time with precision.</p>
 
-<div class="row">
-  <div class="input"><label for="subject">Subject</label><input id="subject" type="text" placeholder="e.g., Math"/></div>
-  <div class="input"><label for="planned">Planned Minutes (today)</label><input id="planned" type="number" min="1" step="1" placeholder="e.g., 45"/></div>
-  <div class="input"><label for="breakMin">Break Minutes</label><input id="breakMin" type="number" min="1" step="1" value="5"/></div>
-  <button class="btn" id="addBtn">Add Subject</button>
-  <div class="pill">💡 Keep this tab active for best timing accuracy.</div>
-</div>
+  <div class="row">
+    <div class="input">
+      <label for="subject">Subject</label>
+      <input id="subject" type="text" placeholder="e.g., Math"/>
+    </div>
+    <div class="input">
+      <label for="planned">Planned Minutes (today)</label>
+      <input id="planned" type="number" min="1" step="1" placeholder="e.g., 45"/>
+    </div>
+    <div class="input">
+      <label for="breakMin">Break Minutes</label>
+      <input id="breakMin" type="number" min="1" step="1" value="5"/>
+    </div>
+    <button class="btn" id="addBtn">Add Subject</button>
+    <div class="pill">💡 Keep this tab active for best timing accuracy.</div>
+  </div>
 
-<div class="section">
-<h2>Plan for Today</h2>
-<table id="planTable">
-<thead><tr><th></th><th>Subject</th><th>Planned (min)</th><th>Studied (min)</th><th>Remaining (min)</th><th></th></tr></thead>
-<tbody id="planBody"></tbody>
-</table>
-</div>
+  <div class="section">
+    <h2>Plan for Today</h2>
+    <table id="planTable">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Subject</th>
+          <th>Planned (min)</th>
+          <th>Studied (min)</th>
+          <th>Remaining (min)</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="planBody"></tbody>
+    </table>
+  </div>
 
-<div class="section">
-<h2>Current Task</h2>
-<div class="row controls" style="margin-bottom:10px">
-<button class="btn" id="startBtn">Start Session</button>
-<button class="btn secondary" id="pauseBtn">Pause</button>
-<button class="btn secondary" id="endBtn">End Session</button>
-<button class="btn secondary" id="resetBtn">Refresh Tracker</button>
-<button class="btn" id="focusBtn">Focus Mode</button>
-</div>
-<div class="current" id="display">No task running.</div>
-</div>
+  <div class="section">
+    <h2>Current Task</h2>
+    <div class="row controls" style="margin-bottom:10px">
+      <button class="btn" id="startBtn">Start Session</button>
+      <button class="btn secondary" id="pauseBtn">Pause</button>
+      <button class="btn secondary" id="endBtn">End Session</button>
+      <button class="btn secondary" id="resetBtn">Refresh Tracker</button>
+      <button class="btn" id="focusBtn">Focus Mode</button>
+    </div>
+    <div class="current" id="display">No task running.</div>
+  </div>
 </div>
 
 <div id="focusOverlay">
-<h1 id="focusHeading">📚 Study Time</h1>
-<h2 id="focusSubject">Subject: -</h2>
-<p id="focusMsg">Stay on task — distractions are locked out!</p>
-<div class="row" style="gap:10px;">
-<button class="btn secondary" id="pauseFocus">Pause/Resume</button>
-<button class="btn secondary" id="exitFocus">Exit Focus Mode</button>
-</div>
+  <h1 id="focusHeading">📚 Study Time</h1>
+  <h2 id="focusSubject">Subject: -</h2>
+  <p id="focusMsg">Stay on task — distractions are locked out!</p>
+  <div class="row" style="gap:10px;">
+    <button class="btn secondary" id="pauseFocus">Pause/Resume</button>
+    <button class="btn secondary" id="exitFocus">Exit Focus Mode</button>
+  </div>
 </div>
 
 <audio id="alertSound" src="https://www.soundjay.com/buttons/sounds/button-16.mp3" preload="auto"></audio>
 
 <script>
 // --- Data & Helpers ---
-let subjects = JSON.parse(localStorage.getItem('subjects'))||[];
+let subjects = JSON.parse(localStorage.getItem('subjects')) || [];
 const planBody = document.getElementById('planBody');
 const display = document.getElementById('display');
 const focusOverlay = document.getElementById('focusOverlay');
@@ -115,23 +192,24 @@ const focusSubject = document.getElementById('focusSubject');
 const focusMsg = document.getElementById('focusMsg');
 const alertSound = document.getElementById('alertSound');
 
-let queue=[], idx=-1, timerId=null;
-let startTime=0,lastTick=0,durationMs=0,elapsedMs=0,paused=false,baseStudiedAtStart=0;
-let breakDurationMs=5*60000;
-let isBreak=false, currentSubject=null;
+let queue = [], idx = -1, timerId = null;
+let startTime = 0, lastTick = 0, durationMs = 0, elapsedMs = 0, paused = false, baseStudiedAtStart = 0;
+let breakDurationMs = 5 * 60000;
+let isBreak = false, currentSubject = null;
 
-function saveSubjects(){ localStorage.setItem('subjects',JSON.stringify(subjects)); }
-function mins(ms){ return Math.floor(ms/60000); }
-function fmtClock(ms){ if(ms<0) ms=0; const t=Math.floor(ms/1000); return `${String(Math.floor(t/60)).padStart(2,'0')}:${String(t%60).padStart(2,'0')}`; }
-function clamp(n,lo,hi){ return Math.max(lo,Math.min(hi,n)); }
+// Save/load
+function saveSubjects(){ localStorage.setItem('subjects', JSON.stringify(subjects)); }
+function mins(ms){ return Math.floor(ms / 60000); }
+function fmtClock(ms){ if(ms < 0) ms = 0; const t = Math.floor(ms/1000); return `${String(Math.floor(t/60)).padStart(2,'0')}:${String(t%60).padStart(2,'0')}`; }
+function clamp(n, lo, hi){ return Math.max(lo, Math.min(hi, n)); }
 
 // --- Render ---
 function renderPlan(){
-  planBody.innerHTML='';
-  subjects.forEach((s,i)=>{
-    const tr=document.createElement('tr');
-    let icon='📚';
-    const n=s.name.toLowerCase();
+  planBody.innerHTML = '';
+  subjects.forEach((s, i) => {
+    const tr = document.createElement('tr');
+    let icon = '📚';
+    const n = (s.name||'').toLowerCase();
     if(n.includes('math')) icon='🧮';
     else if(n.includes('physics')) icon='📐';
     else if(n.includes('cs')||n.includes('computer')||n.includes('it')) icon='💻';
@@ -140,119 +218,163 @@ function renderPlan(){
     else if(n.includes('eng')) icon='✍️';
     const planned = mins(s.plannedMs);
     const studied = mins(s.studiedMs);
-    const remaining = Math.max(0,planned-studied);
+    const remaining = Math.max(0, planned - studied);
 
-    tr.innerHTML=`
-    <td class="icon">${icon}</td>
-    <td>${s.name}<div class="progress-bar-container"><div class="progress-bar" style="width:${(s.studiedMs/s.plannedMs)*100}%"></div></div></td>
-    <td>${planned}</td><td>${studied}</td><td>${remaining}</td>
-    <td class="delete-col"><button class="btn secondary deleteBtn" style="display:none;">❌</button></td>`;
+    // safe percent
+    const pct = s.plannedMs && s.plannedMs > 0 ? Math.min(100, (s.studiedMs / s.plannedMs) * 100) : 0;
+    const pctStr = pct.toFixed(1) + '%';
+
+    tr.innerHTML = `
+      <td class="icon">${icon}</td>
+      <td>${s.name}
+        <div class="progress-bar-container">
+          <div class="progress-bar" style="width:${pctStr}"></div>
+        </div>
+      </td>
+      <td>${planned}</td>
+      <td>${studied}</td>
+      <td>${remaining}</td>
+      <td class="delete-col"><button class="btn secondary deleteBtn" style="display:none;">❌</button></td>
+    `;
     planBody.appendChild(tr);
 
-    tr.addEventListener('mouseenter',()=>{ tr.querySelector('.deleteBtn').style.display='inline-block'; });
-    tr.addEventListener('mouseleave',()=>{ tr.querySelector('.deleteBtn').style.display='none'; });
-    tr.querySelector('.deleteBtn').addEventListener('click',()=>{
-      subjects.splice(i,1); renderPlan(); saveSubjects();
-    });
+    tr.addEventListener('mouseenter', () => { tr.querySelector('.deleteBtn').style.display = 'inline-block'; });
+    tr.addEventListener('mouseleave', () => { tr.querySelector('.deleteBtn').style.display = 'none'; });
+    tr.querySelector('.deleteBtn').addEventListener('click', () => { subjects.splice(i,1); renderPlan(); saveSubjects(); });
   });
+  saveSubjects();
 }
 
-// --- Timer ---
-function buildQueue(){ queue = subjects.map(s=>({kind:'study',subject:s})); }
+// --- Timer / Queue ---
+function buildQueue(){ queue = subjects.map(s => ({ kind:'study', subject: s })); }
 
-function stopTimer(){ if(timerId){ clearInterval(timerId); timerId=null; } }
+function stopTimer(){ if(timerId){ clearInterval(timerId); timerId = null; } }
 
 function startNext(){
-  stopTimer(); idx++;
-  if(idx>=queue.length){ startBreak(); return; }
+  stopTimer();
+  idx++;
+  if(idx >= queue.length){
+    // all done -> start break (if desired)
+    startBreak();
+    return;
+  }
   const item = queue[idx];
-  startTime = Date.now(); lastTick=startTime; elapsedMs=0; paused=false;
+  startTime = Date.now(); lastTick = startTime; elapsedMs = 0; paused = false;
   currentSubject = item.subject;
-  const remaining = Math.max(0,item.subject.plannedMs - item.subject.studiedMs);
-  if(remaining===0){ startNext(); return; }
+  const remaining = Math.max(0, item.subject.plannedMs - item.subject.studiedMs);
+  if(remaining === 0){ startNext(); return; }
   durationMs = remaining; baseStudiedAtStart = item.subject.studiedMs;
+
   display.textContent = `Studying ${item.subject.name} — ${fmtClock(durationMs)} remaining`;
 
-  // --- Show Focus Mode automatically ---
-  focusHeading.textContent="📚 Study Time";
-  focusSubject.textContent=`Subject: ${item.subject.name}`;
-  focusMsg.textContent="Stay on task — distractions are locked out!";
-  focusOverlay.style.display='flex';
-  isBreak=false;
-  timerId=setInterval(()=>tick(item),100);
+  // Show focus mode automatically for study
+  focusHeading.textContent = "📚 Study Time";
+  focusSubject.textContent = `Subject: ${item.subject.name}`;
+  focusMsg.textContent = "Stay on task — distractions are locked out!";
+  focusOverlay.style.display = 'flex';
+
+  isBreak = false;
+  timerId = setInterval(() => tick(item), 100);
 }
 
 function tick(item){
   if(paused) return;
-  const now=Date.now(), delta=now-lastTick; lastTick=now; elapsedMs+=delta;
-  const remain=clamp(durationMs-elapsedMs,0,durationMs);
+  const now = Date.now();
+  const delta = now - lastTick;
+  lastTick = now;
+  elapsedMs += delta;
+  const remain = clamp(durationMs - elapsedMs, 0, durationMs);
 
-  if(!isBreak){
-    item.subject.studiedMs = clamp(baseStudiedAtStart+elapsedMs,0,item.subject.plannedMs);
+  if(!isBreak && item && item.subject){
+    item.subject.studiedMs = clamp(baseStudiedAtStart + elapsedMs, 0, item.subject.plannedMs);
     renderPlan();
   }
 
-  if(remain<=60000 && remain>10000){
-    display.innerHTML=`<span class="alert">1 minute left!</span> ${isBreak? "Break":"Studying"} — ${fmtClock(remain)}`;
-    focusMsg.innerHTML=`<span class="alert">1 minute left!</span> ${isBreak? "Break":"Studying"} — ${fmtClock(remain)}`;
-  } else if(remain<=10000){
-    display.innerHTML=`${isBreak? "Break":"Studying"} — <span class="warn">${fmtClock(remain)}</span>`;
-    focusMsg.innerHTML=`${isBreak? "Break":"Studying"} — <span class="warn">${fmtClock(remain)}</span>`;
-  } else{
-    display.textContent=`${isBreak? "Break":"Studying"} — ${fmtClock(remain)} remaining`;
-    focusMsg.textContent=`${isBreak? "Break":"Studying"} — ${fmtClock(remain)} remaining`;
+  // display updates and calm warnings
+  if(remain <= 60000 && remain > 10000){
+    display.innerHTML = `<span class="alert">1 minute left!</span> ${isBreak ? "Break" : "Studying"} — ${fmtClock(remain)}`;
+    focusMsg.innerHTML = `<span class="alert">1 minute left!</span> ${isBreak ? "Break" : "Studying"} — ${fmtClock(remain)}`;
+    document.querySelectorAll('.progress-bar').forEach(pb => pb.style.opacity = '1');
+  } else if(remain <= 10000){
+    display.innerHTML = `${isBreak ? "Break" : "Studying"} — <span class="warn">${fmtClock(remain)}</span>`;
+    focusMsg.innerHTML = `${isBreak ? "Break" : "Studying"} — <span class="warn">${fmtClock(remain)}</span>`;
+    // make warn color visible by updating overlay items (handled via CSS variable)
+  } else {
+    display.textContent = `${isBreak ? "Break" : "Studying"} — ${fmtClock(remain)} remaining`;
+    focusMsg.textContent = `${isBreak ? "Break" : "Studying"} — ${fmtClock(remain)} remaining`;
   }
 
-  if(elapsedMs>=durationMs){
-    stopTimer(); alertSound.play();
+  if(elapsedMs >= durationMs){
+    stopTimer();
+    alertSound.play();
     if(!isBreak){
-      item.subject.studiedMs=Math.min(item.subject.studiedMs,item.subject.plannedMs); renderPlan();
+      if(item && item.subject){
+        item.subject.studiedMs = Math.min(item.subject.studiedMs, item.subject.plannedMs);
+        renderPlan();
+      }
       startBreak();
     } else {
-      focusOverlay.style.display='none';
-      display.textContent='🎉 Break complete!';
+      focusOverlay.style.display = 'none';
+      display.textContent = '🎉 Break complete!';
     }
   }
 }
 
 // --- Break ---
 function startBreak(){
-  breakDurationMs = (parseInt(document.getElementById('breakMin').value)||5)*60000;
-  startTime=Date.now(); lastTick=startTime; elapsedMs=0; paused=false;
-  durationMs = breakDurationMs; isBreak=true; currentSubject=null;
-  focusHeading.textContent="🧘 Break Time";
-  focusSubject.textContent="";
-  focusMsg.textContent="Stay on task — distractions are locked out!";
-  focusOverlay.style.display='flex';
-  timerId=setInterval(()=>tick({}),100);
+  // read break duration freshly from input
+  breakDurationMs = (parseInt(document.getElementById('breakMin').value, 10) || 5) * 60000;
+  startTime = Date.now(); lastTick = startTime; elapsedMs = 0; paused = false;
+  durationMs = breakDurationMs; isBreak = true; currentSubject = null;
+
+  focusHeading.textContent = "🧘 Break Time";
+  focusSubject.textContent = "";
+  focusMsg.textContent = "Stay on task — distractions are locked out!";
+  focusOverlay.style.display = 'flex';
+  timerId = setInterval(() => tick({}), 100);
 }
 
 // --- Controls ---
-document.getElementById('addBtn').addEventListener('click',()=>{
-  const name=document.getElementById('subject').value.trim();
-  const planned=parseInt(document.getElementById('planned').value,10);
-  if(!name){alert('Enter subject'); return;}
-  if(!planned||planned<=0){alert('Enter valid minutes'); return;}
-  subjects.push({name, plannedMs:planned*60000, studiedMs:0});
-  document.getElementById('subject').value=''; document.getElementById('planned').value='';
+document.getElementById('addBtn').addEventListener('click', () => {
+  const name = document.getElementById('subject').value.trim();
+  const planned = parseInt(document.getElementById('planned').value, 10);
+  if(!name){ alert('Enter subject'); return; }
+  if(!planned || planned <= 0){ alert('Enter valid planned minutes'); return; }
+  subjects.push({ name, plannedMs: planned * 60000, studiedMs: 0 });
+  document.getElementById('subject').value = ''; document.getElementById('planned').value = '';
   renderPlan(); saveSubjects();
 });
 
-document.getElementById('startBtn').addEventListener('click',()=>{
-  if(subjects.length===0){alert('Add at least one subject'); return;}
-  buildQueue(); idx=-1; startNext();
+document.getElementById('startBtn').addEventListener('click', () => {
+  if(subjects.length === 0){ alert('Add at least one subject'); return; }
+  buildQueue(); idx = -1; startNext();
 });
 
-document.getElementById('pauseBtn').addEventListener('click',()=>{ paused=!paused; document.getElementById('pauseBtn').textContent=paused?'Resume':'Pause'; });
-document.getElementById('endBtn').addEventListener('click',()=>{ stopTimer(); alertSound.play(); display.textContent='⏹️ Session ended.'; focusOverlay.style.display='none'; saveSubjects(); });
-document.getElementById('resetBtn').addEventListener('click',()=>{ if(!confirm('Refresh tracker?')) return; stopTimer(); subjects=[]; queue=[]; idx=-1; display.textContent='No task running.'; focusOverlay.style.display='none'; renderPlan(); localStorage.removeItem('subjects'); });
-document.getElementById('focusBtn').addEventListener('click',()=>{ if(queue.length>0) focusOverlay.style.display='flex'; });
-document.getElementById('exitFocus').addEventListener('click',()=>{ focusOverlay.style.display='none'; });
-document.getElementById('pauseFocus').addEventListener('click',()=>{ paused=!paused; });
+document.getElementById('pauseBtn').addEventListener('click', () => {
+  paused = !paused;
+  document.getElementById('pauseBtn').textContent = paused ? 'Resume' : 'Pause';
+});
+
+document.getElementById('endBtn').addEventListener('click', () => {
+  stopTimer(); alertSound.play();
+  display.textContent = '⏹️ Session ended.';
+  focusOverlay.style.display = 'none';
+  saveSubjects();
+});
+
+document.getElementById('resetBtn').addEventListener('click', () => {
+  if(!confirm('Refresh tracker? This will clear all data.')) return;
+  stopTimer(); subjects = []; queue = []; idx = -1;
+  display.textContent = 'No task running.'; focusOverlay.style.display = 'none';
+  renderPlan(); localStorage.removeItem('subjects');
+});
+
+document.getElementById('focusBtn').addEventListener('click', () => { if(queue.length > 0) focusOverlay.style.display = 'flex'; });
+document.getElementById('exitFocus').addEventListener('click', () => { focusOverlay.style.display = 'none'; });
+document.getElementById('pauseFocus').addEventListener('click', () => { paused = !paused; document.getElementById('pauseBtn').textContent = paused ? 'Resume' : 'Pause'; });
+
+// Initial render
 renderPlan();
 </script>
 </body>
 </html>
-
-
-
