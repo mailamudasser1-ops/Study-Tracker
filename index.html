@@ -17,43 +17,127 @@
   --thead: #f3d9ff;
   --text: #3a2b33;
   --shadow: rgba(90,34,138,0.10);
-  --warn: #5a2b8a;
-  --alert: #b084ff;
 }
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:linear-gradient(135deg,var(--bg1),var(--bg2));min-height:100vh;display:flex;justify-content:center;padding:24px;color:var(--text)}
-.app{width:min(960px,100%);background:var(--card);border-radius:20px;padding:24px;box-shadow:0 6px 20px var(--shadow);border:2px solid var(--border);position:relative}
-h1{font-weight:800;color:var(--accent-strong);font-size:2rem;margin-bottom:12px}
-.subtle{color:#7a5b69;margin-bottom:16px}
-.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
-.input{display:flex;flex-direction:column;gap:6px;background:var(--card);border:2px solid var(--border);padding:10px 12px;border-radius:12px;min-width:180px;box-shadow:0 2px 8px var(--shadow)}
-label{font-size:.85rem;color:#7a5b69}
-input[type="text"],input[type="number"]{border:1px solid #ffd1e6;border-radius:10px;padding:8px 10px;outline:none}
-input[type="number"]{width:110px}
-.btn{border:none;border-radius:14px;padding:10px 16px;font-weight:700;cursor:pointer;background:var(--accent);color:#fff;box-shadow:0 4px 10px rgba(136,77,255,0.15);transition:.18s transform ease,.18s filter ease,.18s box-shadow ease}
-.btn:hover{filter:brightness(1.03);box-shadow:0 6px 12px rgba(136,77,255,0.18)}
-.btn:active{transform:translateY(1px)}
-.btn.secondary{background:#f3e8ff;color:#5a3b4c;font-weight:700}
-.section{margin-top:18px;padding:14px;border:2px dashed var(--border);border-radius:16px;background:var(--card);box-shadow:0 2px 8px var(--shadow);position:relative}
-.section h2{margin-bottom:8px;color:var(--accent-dark);font-size:1.1rem}
-table{width:100%;border-collapse:collapse;border-radius:12px;overflow:hidden;border:2px solid var(--border);background:var(--card);box-shadow:0 2px 6px var(--shadow)}
-th,td{padding:10px 12px;text-align:left;border-bottom:1px solid #ffe0ef}
-th{background:var(--thead);color:#6a294a;font-weight:800}
-tr:last-child td{border-bottom:none}
-td.icon{font-size:1.2rem;text-align:center}
-td.delete-col{width:30px;text-align:center}
-.current{font-size:1.15rem;font-weight:800;background:var(--card);border:2px solid var(--border);padding:12px 14px;border-radius:12px;box-shadow:0 2px 6px var(--shadow)}
-.controls{display:flex;gap:10px;flex-wrap:wrap}
-.pill{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:#fff;border:2px solid var(--border);font-weight:600;box-shadow:0 2px 6px var(--shadow)}
-.progress-bar-container{background:rgba(240,230,255,0.8);border-radius:8px;overflow:hidden;height:10px;margin-top:6px}
-.progress-bar{height:10px;background:linear-gradient(90deg,var(--bg1),var(--bg2));width:0%;transition:width .18s linear}
-.warn{color:var(--warn);font-weight:800;font-size:1.4rem;transition:color .2s,font-size .2s}
-.alert{color:var(--alert);font-weight:700}
-#focusOverlay{position:fixed;top:0;left:0;right:0;bottom:0;background:linear-gradient(135deg,var(--bg1),var(--bg2));display:none;align-items:center;justify-content:center;z-index:9999;flex-direction:column;pointer-events:all;text-align:center}
-#focusOverlay h1{font-size:2rem;color:var(--accent-dark);margin-bottom:6px}
-#focusOverlay h2{font-size:1.1rem;color:#5a3b4c;margin-bottom:10px}
-#focusOverlay p{font-size:1.2rem;color:#5a3b4c;margin-bottom:18px;text-align:center}
-@media(max-width:520px){.row{flex-direction:column;align-items:stretch}input[type="number"]{width:100%}.input{min-width:auto}}
+
+body.dark {
+  --bg1: #1e1e2f;
+  --bg2: #2b2b3c;
+  --card: #2c2c3e;
+  --border: #444;
+  --accent: #a87fff;
+  --accent-strong: #c7a0ff;
+  --accent-dark: #c0a6ff;
+  --thead: #3a2f4a;
+  --text: #f3f3f3;
+  --shadow: rgba(0,0,0,0.5);
+}
+
+* { box-sizing: border-box; margin:0; padding:0; }
+body {
+  font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  background: linear-gradient(135deg, var(--bg1), var(--bg2));
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 24px;
+  color: var(--text);
+}
+
+.app {
+  width: min(960px, 100%);
+  background: var(--card);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 6px 20px var(--shadow);
+  border: 2px solid var(--border);
+  position: relative;
+}
+
+h1 { font-weight: 800; color: var(--accent-strong); font-size: 2rem; margin-bottom: 12px; }
+.subtle { color: #7a5b69; margin-bottom: 16px; }
+
+.row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 16px; }
+.input {
+  display: flex; flex-direction: column; gap: 6px;
+  background: var(--card); border: 2px solid var(--border);
+  padding: 10px 12px; border-radius: 12px; min-width: 180px;
+  box-shadow: 0 2px 8px var(--shadow);
+}
+label { font-size: .85rem; color: #7a5b69; }
+input[type="text"], input[type="number"] {
+  border: 1px solid #ffd1e6; border-radius: 10px; padding: 8px 10px; outline: none;
+}
+input[type="number"] { width: 110px; }
+
+.btn {
+  border: none; border-radius: 14px; padding: 10px 16px; font-weight: 700; cursor: pointer;
+  background: var(--accent); color: #fff;
+  box-shadow: 0 4px 10px rgba(136,77,255,0.15);
+  transition: .18s transform ease, .18s filter ease, .18s box-shadow ease;
+}
+.btn:hover { filter: brightness(1.03); box-shadow: 0 6px 12px rgba(136,77,255,0.18); }
+.btn:active { transform: translateY(1px); }
+.btn.secondary { background: #f3e8ff; color: #5a3b4c; font-weight: 700; }
+
+.section {
+  margin-top: 18px; padding: 14px; border: 2px dashed var(--border); border-radius: 16px;
+  background: var(--card); box-shadow: 0 2px 8px var(--shadow); position: relative;
+}
+.section h2 { margin-bottom: 8px; color: var(--accent-dark); font-size: 1.1rem; }
+
+table {
+  width: 100%; border-collapse: collapse; border-radius: 12px; overflow: hidden;
+  border: 2px solid var(--border); background: var(--card); box-shadow: 0 2px 6px var(--shadow);
+}
+th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #ffe0ef; }
+th { background: var(--thead); color: #6a294a; font-weight: 800; }
+tr:last-child td { border-bottom: none; }
+td.icon { font-size: 1.2rem; text-align:center; }
+td.delete-col { width: 30px; text-align: center; }
+
+.current {
+  font-size: 1.15rem; font-weight: 800; background: var(--card); border: 2px solid var(--border);
+  padding: 12px 14px; border-radius: 12px; box-shadow: 0 2px 6px var(--shadow);
+}
+
+.controls { display:flex; gap:10px; flex-wrap:wrap; }
+.pill { display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px;
+  background:#fff; border:2px solid var(--border); font-weight:600; box-shadow:0 2px 6px var(--shadow); }
+
+/* Hollow track + darker fill for clarity */
+.progress-bar-container {
+  background: #f2e8ff; /* lighter hollow background */
+  border-radius: 8px;
+  overflow: hidden;
+  height: 12px;
+  margin-top: 6px;
+}
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #4b1f84, #7b4cff); /* darker fill */
+  width: 0%;
+  transition: width 0.2s linear, filter 0.18s ease;
+}
+.progress-bar.running { filter: brightness(1.12) saturate(1.05); }
+
+.warn { color: var(--accent-dark); font-weight:800; font-size:1.4rem; transition: color .2s, font-size .2s; }
+.alert { color: var(--accent); font-weight:700; }
+
+#focusOverlay {
+  position: fixed; top:0; left:0; right:0; bottom:0;
+  background: linear-gradient(135deg, var(--bg1), var(--bg2));
+  display: none; align-items: center; justify-content: center; z-index: 9999;
+  flex-direction: column; pointer-events: all; text-align: center;
+}
+#focusOverlay h1 { font-size: 2rem; color: var(--accent-dark); margin-bottom: 6px; }
+#focusOverlay h2 { font-size: 1.1rem; color: #5a3b4c; margin-bottom: 10px; }
+#focusOverlay p { font-size: 1.2rem; color: #5a3b4c; margin-bottom: 18px; text-align:center; }
+
+@media (max-width:520px){
+  .row{ flex-direction: column; align-items: stretch; }
+  input[type="number"]{ width:100%; }
+  .input { min-width: auto; }
+}
 </style>
 </head>
 <body>
@@ -75,6 +159,7 @@ td.delete-col{width:30px;text-align:center}
       <input id="breakMin" type="number" min="1" step="1" value="5"/>
     </div>
     <button class="btn" id="addBtn">Add Subject</button>
+    <button class="btn secondary" id="darkModeBtn">🌙 Dark Mode</button>
     <div class="pill">💡 Keep this tab active for best timing accuracy.</div>
   </div>
 
@@ -93,6 +178,23 @@ td.delete-col{width:30px;text-align:center}
       </thead>
       <tbody id="planBody"></tbody>
     </table>
+  </div>
+
+  <div class="section">
+    <h2>📅 Daily Progress</h2>
+    <div id="dailySummary"></div>
+    <div class="progress-bar-container"><div class="progress-bar" id="dailyBar"></div></div>
+  </div>
+
+  <div class="section">
+    <h2>📆 Weekly Progress</h2>
+    <div style="display:flex; gap:10px; align-items:center; margin-bottom:8px;">
+      <label for="weeklyGoal" style="margin-right:6px;">Weekly Goal (hours)</label>
+      <input id="weeklyGoal" type="number" min="1" value="25" style="width:110px;"/>
+      <button class="btn secondary" id="saveWeeklyBtn">Save Goal</button>
+    </div>
+    <div id="weeklySummary"></div>
+    <div class="progress-bar-container"><div class="progress-bar" id="weeklyBar"></div></div>
   </div>
 
   <div class="section">
@@ -121,47 +223,67 @@ td.delete-col{width:30px;text-align:center}
 <audio id="alertSound" src="https://www.soundjay.com/buttons/sounds/button-16.mp3" preload="auto"></audio>
 
 <script>
+// ----- data and DOM refs -----
 let subjects = JSON.parse(localStorage.getItem('subjects')) || [];
-const planBody=document.getElementById('planBody');
-const display=document.getElementById('display');
-const focusOverlay=document.getElementById('focusOverlay');
-const focusHeading=document.getElementById('focusHeading');
-const focusSubject=document.getElementById('focusSubject');
-const focusMsg=document.getElementById('focusMsg');
-const alertSound=document.getElementById('alertSound');
+let weeklyGoalHours = parseInt(localStorage.getItem('weeklyGoalHours'), 10) || 25;
 
-let queue=[],idx=-1,timerId=null;
-let startTime=0,lastTick=0,durationMs=0,elapsedMs=0,paused=false,baseStudiedAtStart=0;
-let breakDurationMs=5*60000;
-let isBreak=false,currentSubject=null;
+const planBody = document.getElementById('planBody');
+const display = document.getElementById('display');
+const focusOverlay = document.getElementById('focusOverlay');
+const focusHeading = document.getElementById('focusHeading');
+const focusSubject = document.getElementById('focusSubject');
+const focusMsg = document.getElementById('focusMsg');
+const alertSound = document.getElementById('alertSound');
 
-function saveSubjects(){localStorage.setItem('subjects',JSON.stringify(subjects));}
-function mins(ms){return Math.floor(ms/60000);}
-function fmtClock(ms){if(ms<0)ms=0;const t=Math.floor(ms/1000);return `${String(Math.floor(t/60)).padStart(2,'0')}:${String(t%60).padStart(2,'0')}`;}
-function clamp(n,lo,hi){return Math.max(lo,Math.min(hi,n));}
+const dailySummary = document.getElementById('dailySummary');
+const dailyBar = document.getElementById('dailyBar');
+const weeklySummary = document.getElementById('weeklySummary');
+const weeklyBar = document.getElementById('weeklyBar');
+const weeklyGoalInput = document.getElementById('weeklyGoal');
+const saveWeeklyBtn = document.getElementById('saveWeeklyBtn');
 
+weeklyGoalInput.value = weeklyGoalHours;
+
+let queue = [], idx = -1, timerId = null;
+let startTime = 0, lastTick = 0, durationMs = 0, elapsedMs = 0, paused = false, baseStudiedAtStart = 0;
+let breakDurationMs = 5 * 60000;
+let isBreak = false, currentSubject = null;
+
+// ----- helpers -----
+function saveSubjects(){ localStorage.setItem('subjects', JSON.stringify(subjects)); }
+function mins(ms){ return Math.floor(ms / 60000); }
+function hrs(ms){ return (ms/3600000).toFixed(1); }
+function fmtClock(ms){ if(ms < 0) ms = 0; const t = Math.floor(ms/1000); return `${String(Math.floor(t/60)).padStart(2,'0')}:${String(t%60).padStart(2,'0')}`; }
+function clamp(n, lo, hi){ return Math.max(lo, Math.min(hi, n)); }
+function getDateKey(date){ return 'studied_' + date.toISOString().slice(0,10); }
+function getTodayKey(){ return getDateKey(new Date()); }
+
+// ----- rendering -----
 function renderPlan(){
-  planBody.innerHTML='';
-  subjects.forEach((s,i)=>{
-    const tr=document.createElement('tr');
-    let icon='📚';
-    const n=(s.name||'').toLowerCase();
-    if(n.includes('math'))icon='🧮';
-    else if(n.includes('physics'))icon='📐';
-    else if(n.includes('cs')||n.includes('computer')||n.includes('it'))icon='💻';
-    else if(n.includes('chem'))icon='🧪';
-    else if(n.includes('bio'))icon='🔬';
-    else if(n.includes('eng'))icon='✍️';
-    const planned=mins(s.plannedMs);
-    const studied=mins(s.studiedMs);
-    const remaining=Math.max(0,planned-studied);
-    const pct=s.plannedMs&&s.plannedMs>0?Math.min(100,(s.studiedMs/s.plannedMs)*100):0;
-    const pctStr=pct.toFixed(1)+'%';
-    tr.innerHTML=`
+  planBody.innerHTML = '';
+  subjects.forEach((s, i) => {
+    const tr = document.createElement('tr');
+    let icon = '📚';
+    const n = (s.name||'').toLowerCase();
+    if(n.includes('math')) icon='🧮';
+    else if(n.includes('physics')) icon='📐';
+    else if(n.includes('cs')||n.includes('computer')||n.includes('it')) icon='💻';
+    else if(n.includes('chem')) icon='🧪';
+    else if(n.includes('bio')) icon='🔬';
+    else if(n.includes('eng')) icon='✍️';
+
+    const planned = mins(s.plannedMs || 0);
+    const studied = mins(s.studiedMs || 0);
+    const remaining = Math.max(0, planned - studied);
+
+    const pct = s.plannedMs && s.plannedMs > 0 ? Math.min(100, (s.studiedMs / s.plannedMs) * 100) : 0;
+    const pctStr = pct.toFixed(1) + '%';
+
+    tr.innerHTML = `
       <td class="icon">${icon}</td>
-      <td>${s.name}
+      <td class="subject-cell">${s.name}
         <div class="progress-bar-container">
-          <div class="progress-bar" style="width:${pctStr}"></div>
+          <div class="progress-bar" data-idx="${i}" style="width:${pctStr}"></div>
         </div>
       </td>
       <td>${planned}</td>
@@ -169,126 +291,229 @@ function renderPlan(){
       <td>${remaining}</td>
       <td class="delete-col"><button class="btn secondary deleteBtn" style="display:none;">❌</button></td>
     `;
+
     planBody.appendChild(tr);
-    tr.addEventListener('mouseenter',()=>{tr.querySelector('.deleteBtn').style.display='inline-block';});
-    tr.addEventListener('mouseleave',()=>{tr.querySelector('.deleteBtn').style.display='none';});
-    tr.querySelector('.deleteBtn').addEventListener('click',()=>{subjects.splice(i,1);renderPlan();saveSubjects();});
+
+    tr.addEventListener('mouseenter', () => { tr.querySelector('.deleteBtn').style.display = 'inline-block'; });
+    tr.addEventListener('mouseleave', () => { tr.querySelector('.deleteBtn').style.display = 'none'; });
+    tr.querySelector('.deleteBtn').addEventListener('click', () => { subjects.splice(i,1); renderPlan(); saveSubjects(); updateSummaries(); });
   });
+
+  // mark running progress bar visually
+  document.querySelectorAll('.progress-bar').forEach(pb => pb.classList.remove('running'));
+  if(currentSubject){
+    const idx = subjects.indexOf(currentSubject);
+    if(idx >= 0){
+      const el = document.querySelector(`.progress-bar[data-idx='${idx}']`);
+      if(el) el.classList.add('running');
+    }
+  }
+
   saveSubjects();
 }
 
-function buildQueue(){queue=subjects.map(s=>({kind:'study',subject:s}));}
-function stopTimer(){if(timerId){clearInterval(timerId);timerId=null;}}
+// ----- queue & timer -----
+function buildQueue(){ queue = subjects.map(s => ({ kind:'study', subject: s })); }
+function stopTimer(){ if(timerId){ clearInterval(timerId); timerId = null; } }
 
 function startNext(){
   stopTimer();
   idx++;
-  if(idx>=queue.length){startBreak();return;}
-  const item=queue[idx];
-  startTime=Date.now();lastTick=startTime;elapsedMs=0;paused=false;
-  currentSubject=item.subject;
-  const remaining=Math.max(0,item.subject.plannedMs-item.subject.studiedMs);
-  if(remaining===0){startNext();return;}
-  durationMs=remaining;baseStudiedAtStart=item.subject.studiedMs;
-  display.textContent=`Studying ${item.subject.name} — ${fmtClock(durationMs)} remaining`;
-  focusHeading.textContent="📚 Study Time";
-  focusSubject.textContent=`Subject: ${item.subject.name}`;
-  focusMsg.textContent="Stay on task — distractions are locked out!";
-  focusOverlay.style.display='flex';
-  isBreak=false;
-  timerId=setInterval(()=>tick(item),100);
+  if(idx >= queue.length){ startBreak(); return; }
+  const item = queue[idx];
+  startTime = Date.now(); lastTick = startTime; elapsedMs = 0; paused = false;
+  currentSubject = item.subject;
+  const remaining = Math.max(0, item.subject.plannedMs - item.subject.studiedMs);
+  if(remaining === 0){ startNext(); return; }
+  durationMs = remaining; baseStudiedAtStart = item.subject.studiedMs;
+
+  display.textContent = `Studying ${item.subject.name} — ${fmtClock(durationMs)} remaining`;
+  focusHeading.textContent = "📚 Study Time";
+  focusSubject.textContent = `Subject: ${item.subject.name}`;
+  focusMsg.textContent = "Stay on task — distractions are locked out!";
+  focusOverlay.style.display = 'flex';
+
+  isBreak = false;
+  renderPlan();
+  timerId = setInterval(() => tick(item), 200);
 }
 
 function tick(item){
-  if(paused)return;
-  const now=Date.now();
-  const delta=now-lastTick;
-  lastTick=now;
-  elapsedMs+=delta;
-  const remain=clamp(durationMs-elapsedMs,0,durationMs);
-  if(!isBreak&&item&&item.subject){
-    item.subject.studiedMs=clamp(baseStudiedAtStart+elapsedMs,0,item.subject.plannedMs);
+  if(paused) return;
+  const now = Date.now();
+  const delta = now - lastTick;
+  lastTick = now;
+  elapsedMs += delta;
+  const remain = clamp(durationMs - elapsedMs, 0, durationMs);
+
+  if(!isBreak && item && item.subject){
+    item.subject.studiedMs = clamp(baseStudiedAtStart + elapsedMs, 0, item.subject.plannedMs);
+    // update only the relevant progress bar / row for efficiency
     renderPlan();
+    updateSummaries();
   }
-  if(remain<=60000&&remain>10000){
-    display.innerHTML=`<span class="alert">1 minute left!</span> ${isBreak?"Break":"Studying"} — ${fmtClock(remain)}`;
-    focusMsg.innerHTML=`<span class="alert">1 minute left!</span> ${isBreak?"Break":"Studying"} — ${fmtClock(remain)}`;
-  }else if(remain<=10000){
-    display.innerHTML=`${isBreak?"Break":"Studying"} — <span class="warn">${fmtClock(remain)}</span>`;
-    focusMsg.innerHTML=`${isBreak?"Break":"Studying"} — <span class="warn">${fmtClock(remain)}</span>`;
-  }else{
-    display.textContent=`${isBreak?"Break":"Studying"} — ${fmtClock(remain)} remaining`;
-    focusMsg.textContent=`${isBreak?"Break":"Studying"} — ${fmtClock(remain)} remaining`;
+
+  if(remain <= 60000 && remain > 10000){
+    display.innerHTML = `<span class="alert">1 minute left!</span> ${isBreak ? "Break" : "Studying"} — ${fmtClock(remain)}`;
+    focusMsg.innerHTML = `<span class="alert">1 minute left!</span> ${isBreak ? "Break" : "Studying"} — ${fmtClock(remain)}`;
+  } else if(remain <= 10000){
+    display.innerHTML = `${isBreak ? "Break" : "Studying"} — <span class="warn">${fmtClock(remain)}</span>`;
+    focusMsg.innerHTML = `${isBreak ? "Break" : "Studying"} — <span class="warn">${fmtClock(remain)}</span>`;
+  } else {
+    display.textContent = `${isBreak ? "Break" : "Studying"} — ${fmtClock(remain)} remaining`;
+    focusMsg.textContent = `${isBreak ? "Break" : "Studying"} — ${fmtClock(remain)} remaining`;
   }
-  if(elapsedMs>=durationMs){
+
+  if(elapsedMs >= durationMs){
     stopTimer();
     alertSound.play();
     if(!isBreak){
-      if(item&&item.subject){item.subject.studiedMs=Math.min(item.subject.studiedMs,item.subject.plannedMs);renderPlan();}
+      if(item && item.subject){
+        item.subject.studiedMs = Math.min(item.subject.studiedMs, item.subject.plannedMs);
+        saveSubjects();
+        renderPlan();
+        updateSummaries();
+      }
       startBreak();
-    }else{
-      focusOverlay.style.display='none';
-      display.textContent='🎉 Break complete!';
+    } else {
+      focusOverlay.style.display = 'none';
+      display.textContent = '🎉 Break complete!';
+      currentSubject = null;
+      renderPlan();
     }
   }
 }
 
 function startBreak(){
-  breakDurationMs=(parseInt(document.getElementById('breakMin').value,10)||5)*60000;
-  startTime=Date.now();lastTick=startTime;elapsedMs=0;paused=false;
-  durationMs=breakDurationMs;isBreak=true;currentSubject=null;
-  focusHeading.textContent="🧘 Break Time";
-  focusSubject.textContent="";
-  focusMsg.textContent="Stay on task — distractions are locked out!";
-  focusOverlay.style.display='flex';
-  timerId=setInterval(()=>tick({}),100);
+  breakDurationMs = (parseInt(document.getElementById('breakMin').value, 10) || 5) * 60000;
+  startTime = Date.now(); lastTick = startTime; elapsedMs = 0; paused = false;
+  durationMs = breakDurationMs; isBreak = true; currentSubject = null;
+
+  focusHeading.textContent = "🧘 Break Time";
+  focusSubject.textContent = "";
+  focusMsg.textContent = "Take a breather — relax for a bit!";
+  focusOverlay.style.display = 'flex';
+  renderPlan();
+  timerId = setInterval(() => tick({}), 200);
 }
 
-document.getElementById('addBtn').addEventListener('click',()=>{
-  const name=document.getElementById('subject').value.trim();
-  const planned=parseInt(document.getElementById('planned').value,10);
-  if(!name){alert('Enter subject');return;}
-  if(!planned||planned<=0){alert('Enter valid planned minutes');return;}
-  subjects.push({name,plannedMs:planned*60000,studiedMs:0});
-  document.getElementById('subject').value='';document.getElementById('planned').value='';
-  renderPlan();saveSubjects();
+// ----- summaries -----
+function updateSummaries(){
+  const plannedDayMs = subjects.reduce((acc,s)=>acc + (s.plannedMs || 0), 0);
+  const studiedDayMs = subjects.reduce((acc,s)=>acc + (s.studiedMs || 0), 0);
+  const pctDay = plannedDayMs>0? Math.round((studiedDayMs/plannedDayMs)*100) : 0;
+  dailySummary.textContent = `Today: Planned ${hrs(plannedDayMs)}h — Studied ${hrs(studiedDayMs)}h (${pctDay}%)`;
+  dailyBar.style.width = Math.min(100, pctDay) + '%';
+
+  // save today's studied total (persist per-date)
+  localStorage.setItem(getTodayKey(), studiedDayMs);
+
+  // weekly totals (last 7 days including today)
+  let studiedWeekMs = 0;
+  for(let i=0;i<7;i++){
+    const d = new Date(); d.setDate(d.getDate() - i);
+    const key = getDateKey(d);
+    studiedWeekMs += parseInt(localStorage.getItem(key) || '0', 10);
+  }
+
+  const weekTargetMs = (parseFloat(localStorage.getItem('weeklyGoalHours')) || weeklyGoalHours) * 3600000;
+  const pctWeek = weekTargetMs>0 ? Math.round((studiedWeekMs / weekTargetMs) * 100) : 0;
+  weeklySummary.textContent = `Weekly Goal: ${ (localStorage.getItem('weeklyGoalHours') || weeklyGoalHours) }h — Studied ${hrs(studiedWeekMs)}h (${pctWeek}%)`;
+  weeklyBar.style.width = Math.min(100, pctWeek) + '%';
+}
+
+// ----- UI / events -----
+// Add subject
+document.getElementById('addBtn').addEventListener('click', () => {
+  const name = document.getElementById('subject').value.trim();
+  const planned = parseInt(document.getElementById('planned').value, 10);
+  if(!name){ alert('Enter subject'); return; }
+  if(!planned || planned <= 0){ alert('Enter valid planned minutes'); return; }
+  subjects.push({ name, plannedMs: planned * 60000, studiedMs: 0 });
+  document.getElementById('subject').value = ''; document.getElementById('planned').value = '';
+  saveSubjects(); renderPlan(); updateSummaries();
 });
 
-document.getElementById('startBtn').addEventListener('click',()=>{
-  if(subjects.length===0){alert('Add at least one subject');return;}
-  buildQueue();idx=-1;startNext();
+// Start/pause/end/reset
+document.getElementById('startBtn').addEventListener('click', () => {
+  if(subjects.length === 0){ alert('Add at least one subject'); return; }
+  buildQueue(); idx = -1; startNext();
 });
 
-document.getElementById('pauseBtn').addEventListener('click',()=>{
-  paused=!paused;
-  document.getElementById('pauseBtn').textContent=paused?'Resume':'Pause';
-  if(!paused){lastTick=Date.now();alertSound.play();} // ✅ Beep on resume
+document.getElementById('pauseBtn').addEventListener('click', () => {
+  paused = !paused;
+  document.getElementById('pauseBtn').textContent = paused ? 'Resume' : 'Pause';
+  if (!paused) { lastTick = Date.now(); }
 });
 
-document.getElementById('endBtn').addEventListener('click',()=>{
-  stopTimer();alertSound.play();
-  display.textContent='⏹️ Session ended.';
-  focusOverlay.style.display='none';
-  saveSubjects();
+document.getElementById('endBtn').addEventListener('click', () => {
+  stopTimer(); alertSound.play();
+  display.textContent = '⏹️ Session ended.';
+  focusOverlay.style.display = 'none';
+  isBreak = false; currentSubject = null;
+  saveSubjects(); renderPlan(); updateSummaries();
 });
 
-document.getElementById('resetBtn').addEventListener('click',()=>{
-  if(!confirm('Refresh tracker? This will clear all data.'))return;
-  stopTimer();subjects=[];queue=[];idx=-1;
-  display.textContent='No task running.';focusOverlay.style.display='none';
-  renderPlan();localStorage.removeItem('subjects');
+// Reset (clear subjects and last 7 days data — keeps dark mode)
+document.getElementById('resetBtn').addEventListener('click', () => {
+  if(confirm('Clear all data? This will remove subjects and the last 7 days of studied records.')){
+    subjects = []; saveSubjects(); renderPlan();
+    for(let i=0;i<7;i++){
+      const d = new Date(); d.setDate(d.getDate() - i);
+      localStorage.removeItem(getDateKey(d));
+    }
+    localStorage.removeItem('weeklyGoalHours');
+    stopTimer(); display.textContent = 'No task running.';
+    focusOverlay.style.display = 'none';
+    updateSummaries();
+  }
 });
 
-document.getElementById('focusBtn').addEventListener('click',()=>{if(queue.length>0)focusOverlay.style.display='flex';});
-document.getElementById('exitFocus').addEventListener('click',()=>{focusOverlay.style.display='none';});
-
-document.getElementById('pauseFocus').addEventListener('click',()=>{
-  paused=!paused;
-  document.getElementById('pauseBtn').textContent=paused?'Resume':'Pause';
-  if(!paused){lastTick=Date.now();alertSound.play();} // ✅ Beep on resume
+// Focus overlay controls
+document.getElementById('focusBtn').addEventListener('click', () => { focusOverlay.style.display = 'flex'; });
+document.getElementById('exitFocus').addEventListener('click', () => { focusOverlay.style.display = 'none'; });
+document.getElementById('pauseFocus').addEventListener('click', () => {
+  paused = !paused; document.getElementById('pauseBtn').textContent = paused ? 'Resume' : 'Pause'; if (!paused) { lastTick = Date.now(); }
 });
 
+// Dark mode toggle
+const darkModeBtn = document.getElementById('darkModeBtn');
+const isDark = localStorage.getItem('darkMode') === 'true';
+if(isDark) document.body.classList.add('dark');
+darkModeBtn.textContent = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
+darkModeBtn.addEventListener('click', () => {
+  document.body.classList.toggle('dark');
+  const active = document.body.classList.contains('dark');
+  localStorage.setItem('darkMode', active);
+  darkModeBtn.textContent = active ? '☀️ Light Mode' : '🌙 Dark Mode';
+});
+
+// Weekly goal save
+saveWeeklyBtn.addEventListener('click', () => {
+  const val = parseFloat(weeklyGoalInput.value);
+  if(!val || val <= 0){ alert('Enter a valid weekly hours goal'); return; }
+  weeklyGoalHours = val;
+  localStorage.setItem('weeklyGoalHours', weeklyGoalHours);
+  updateSummaries();
+  alert('Weekly goal saved.');
+});
+
+// also update live when editing
+weeklyGoalInput.addEventListener('input', () => {
+  const v = parseFloat(weeklyGoalInput.value);
+  if(v && v > 0) {
+    weeklyBar.style.opacity = '0.9';
+  }
+});
+
+// initial render
 renderPlan();
+updateSummaries();
+
+// ensure summaries update if the page remains open and time passes (e.g., midnight transfer)
+setInterval(updateSummaries, 60000);
+
 </script>
 </body>
 </html>
+
