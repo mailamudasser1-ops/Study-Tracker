@@ -295,13 +295,26 @@ function renderPlan(){
     const tr = document.createElement('tr');
     let icon = '📚';
     const n = (s.name||'').toLowerCase();
-    if(n.includes('math')) icon='🧮';
-    else if(n.includes('physics')) icon='📐';
-    else if(n.includes('cs')||n.includes('computer')||n.includes('it')) icon='💻';
-    else if(n.includes('chem')) icon='🧪';
-    else if(n.includes('bio')) icon='🔬';
-    else if(n.includes('eng')) icon='✍️';
-
+    
+    if(n.includes('math')) icon = '🧮';             // Mathematics
+    else if(n.includes('physics')) icon = '📐';     // Physics
+    else if(n.includes('chem')) icon = '🧪';        // Chemistry
+    else if(n.includes('bio')) icon = '🧬';         // Biology
+    else if(n.includes('english') || n.includes('literature')) icon = '📖'; // English / Literature
+    else if(n.includes('computer science') || n.includes('cs')) icon = '🖥️'; // Computer Science
+    else if(n.includes('it') || n.includes('information technology')) icon = '💻'; // IT
+    else if(n.includes('account')) icon = '🧾';     // Accounting
+    else if(n.includes('econ')) icon = '📊';        // Economics
+    else if(n.includes('business') || n.includes('management')) icon = '💼'; // Business / Management
+    else if(n.includes('law')) icon = '⚖️';         // Law
+    else if(n.includes('psych')) icon = '🧠';       // Psychology
+    else if(n.includes('history')) icon = '📜';     // History
+    else if(n.includes('geo')) icon = '🌍';         // Geography
+    else if(n.includes('art') || n.includes('design')) icon = '🎨'; // Art / Design
+    else if(n.includes('music')) icon = '🎵';       // Music
+    else if(n.includes('philosophy')) icon = '🤔';  // Philosophy
+    else if(n.includes('sociology')) icon = '🧑‍🤝‍🧑'; // Sociology
+    else if(n.includes('political')) icon = '🗳️';  // Political Science
     const planned = mins(s.plannedMs || 0);
     const studied = mins(s.studiedMs || 0);
     const remaining = Math.max(0, planned - studied);
