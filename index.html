@@ -7,29 +7,33 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg1: #ffe6f0;
-  --bg2: #e6dbff;
-  --card: #fff;
+  --bg1: #ffe6f0;        
+  --bg2: #e6dbff;        
+  --card: #ffffff;       
   --border: #e9d2ff;
-  --accent: #b084ff;
+  --accent: #b084ff;     
   --accent-strong: #8a2be2;
   --accent-dark: #5a2b8a;
-  --thead: #f3d9ff;
-  --text: #3a2b33;
+  --thead: #f3d9ff;       /* table header (light mode lilac) */
+  --text: #3a2b33;        /* dark gray for readability */
   --shadow: rgba(90,34,138,0.10);
+  --warn: #5a2b8a;        /* use purple instead of red */
+  --alert: #b084ff;       /* softer lilac accent */
 }
 
 body.dark {
-  --bg1: #1e1e2f;
-  --bg2: #2b2b3c;
-  --card: #2c2c3e;
-  --border: #444;
-  --accent: #a87fff;
-  --accent-strong: #c7a0ff;
-  --accent-dark: #c0a6ff;
-  --thead: #3a2f4a;
-  --text: #f3f3f3;
+  --bg1: #2e2e2e;   /* main background = medium gray */
+  --bg2: #3a3a3a;   /* secondary background = slightly darker gray */
+  --card: #3a3047;        /* card = soft grey-purple */
+  --border: #6e5291;      /* lilac-grey border */
+  --accent: #c9a4ff;      /* lighter lilac accent */
+  --accent-strong: #d7b8ff;
+  --accent-dark: #a67de8;
+  --thead: #5a3e7a;       /* lilac table header in dark */
+  --text: #d8c6f7;        /* soft lilac text instead of harsh white */
   --shadow: rgba(0,0,0,0.5);
+  --warn: #b084ff;        /* purple warn */
+  --alert: #c9a4ff;       /* pastel lilac alert */
 }
 
 * { box-sizing: border-box; margin:0; padding:0; }
@@ -54,7 +58,15 @@ body {
 }
 
 h1 { font-weight: 800; color: var(--accent-strong); font-size: 2rem; margin-bottom: 12px; }
-.subtle { color: #7a5b69; margin-bottom: 16px; }
+/* Subtle text */
+.subtle {
+  color: var(--accent-dark); /* pastel lilac in both modes */
+  margin-bottom: 16px;
+}
+
+
+
+
 
 .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 16px; }
 .input {
@@ -63,7 +75,13 @@ h1 { font-weight: 800; color: var(--accent-strong); font-size: 2rem; margin-bott
   padding: 10px 12px; border-radius: 12px; min-width: 180px;
   box-shadow: 0 2px 8px var(--shadow);
 }
-label { font-size: .85rem; color: #7a5b69; }
+  
+/* Labels */
+label {
+  font-size: .85rem;
+  color: var(--accent-dark);
+}
+
 input[type="text"], input[type="number"] {
   border: 1px solid #ffd1e6; border-radius: 10px; padding: 8px 10px; outline: none;
 }
@@ -101,8 +119,20 @@ td.delete-col { width: 30px; text-align: center; }
 }
 
 .controls { display:flex; gap:10px; flex-wrap:wrap; }
-.pill { display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px;
-  background:#fff; border:2px solid var(--border); font-weight:600; box-shadow:0 2px 6px var(--shadow); }
+/* Pills */
+.pill { 
+  display:inline-flex; 
+  align-items:center; 
+  gap:8px; 
+  padding:8px 12px; 
+  border-radius:999px;
+
+  background: var(--card);   /* pastel white in light, muted purple in dark */
+  color: var(--text);        /* adjusts for mode */
+  border: 2px solid var(--border);
+  font-weight:600; 
+  box-shadow: 0 2px 6px var(--shadow); 
+}
 
 /* Hollow track + darker fill for clarity */
 .progress-bar-container {
@@ -479,14 +509,14 @@ document.getElementById('pauseFocus').addEventListener('click', () => {
 // Dark mode toggle
 const darkModeBtn = document.getElementById('darkModeBtn');
 const isDark = localStorage.getItem('darkMode') === 'true';
-if(isDark) document.body.classList.add('dark');
-darkModeBtn.textContent = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
+if (isDark) { document.body.classList.add('dark'); darkModeBtn.textContent = '🌖'; } else { darkModeBtn.textContent = '🌒'; }
 darkModeBtn.addEventListener('click', () => {
   document.body.classList.toggle('dark');
   const active = document.body.classList.contains('dark');
   localStorage.setItem('darkMode', active);
-  darkModeBtn.textContent = active ? '☀️ Light Mode' : '🌙 Dark Mode';
+  darkModeBtn.textContent = active ? '🌖' : '🌒';
 });
+
 
 // Weekly goal save
 saveWeeklyBtn.addEventListener('click', () => {
