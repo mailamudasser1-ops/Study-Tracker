@@ -7,166 +7,89 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg1: #ffe6f0;        
-  --bg2: #e6dbff;        
-  --card: #ffffff;       
+  --bg1: #ffe6f0;
+  --bg2: #e6dbff;
+  --card: #ffffff;
   --border: #e9d2ff;
-  --accent: #b084ff;     
+  --accent: #b084ff;
   --accent-strong: #8a2be2;
   --accent-dark: #5a2b8a;
-  --thead: #f3d9ff;       /* table header (light mode lilac) */
-  --text: #3a2b33;        /* dark gray for readability */
+  --thead: #f3d9ff;
+  --text: #3a2b33;
   --shadow: rgba(90,34,138,0.10);
-  --warn: #5a2b8a;        /* use purple instead of red */
-  --alert: #b084ff;       /* softer lilac accent */
 }
-
 body.dark {
-  --bg1: #2e2e2e;   /* main background = medium gray */
-  --bg2: #3a3a3a;   /* secondary background = slightly darker gray */
-  --card: #3a3047;        /* card = soft grey-purple */
-  --border: #6e5291;      /* lilac-grey border */
-  --accent: #c9a4ff;      /* lighter lilac accent */
-  --accent-strong: #d7b8ff;
-  --accent-dark: #a67de8;
-  --thead: #5a3e7a;       /* lilac table header in dark */
-  --text: #d8c6f7;        /* soft lilac text instead of harsh white */
-  --shadow: rgba(0,0,0,0.5);
-  --warn: #b084ff;        /* purple warn */
-  --alert: #c9a4ff;       /* pastel lilac alert */
+  --bg1:#2e2e2e; --bg2:#3a3a3a; --card:#3a3047; --border:#6e5291;
+  --accent:#c9a4ff; --accent-strong:#d7b8ff; --accent-dark:#a67de8;
+  --thead:#5a3e7a; --text:#d8c6f7; --shadow: rgba(0,0,0,0.5);
 }
-
-* { box-sizing: border-box; margin:0; padding:0; }
-body {
-  font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-  background: linear-gradient(135deg, var(--bg1), var(--bg2));
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  padding: 24px;
-  color: var(--text);
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  background: linear-gradient(135deg,var(--bg1),var(--bg2));
+  min-height:100vh; display:flex; justify-content:center; padding:24px; color:var(--text);
 }
-
-.app {
-  width: min(960px, 100%);
-  background: var(--card);
-  border-radius: 20px;
-  padding: 24px;
-  box-shadow: 0 6px 20px var(--shadow);
-  border: 2px solid var(--border);
-  position: relative;
+.app{
+  width:min(960px,100%); background:var(--card); border-radius:20px; padding:24px;
+  box-shadow:0 6px 20px var(--shadow); border:2px solid var(--border); position:relative;
 }
+h1{font-weight:800;color:var(--accent-strong);font-size:2rem;margin-bottom:12px}
+.subtle{color:var(--accent-dark);margin-bottom:16px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+.input{display:flex;flex-direction:column;gap:6px;background:var(--card);border:2px solid var(--border);
+  padding:10px 12px;border-radius:12px;min-width:180px;box-shadow:0 2px 8px var(--shadow)}
+label{font-size:.85rem;color:var(--accent-dark)}
+input[type="text"],input[type="number"],select{border:1px solid #ffd1e6;border-radius:10px;padding:8px 10px;outline:none}
+input[type="number"]{width:110px}
+.btn{border:none;border-radius:14px;padding:10px 16px;font-weight:700;cursor:pointer;background:var(--accent);color:#fff;
+  box-shadow:0 4px 10px rgba(136,77,255,0.15);transition:.18s}
+.btn:hover{filter:brightness(1.03)}
+.btn.secondary{background:#f3e8ff;color:#5a3b4c}
+.section{margin-top:18px;padding:14px;border:2px dashed var(--border);border-radius:16px;background:var(--card)}
+.section h2{margin-bottom:8px;color:var(--accent-dark);font-size:1.1rem}
+table{width:100%;border-collapse:collapse;border-radius:12px;overflow:hidden;border:2px solid var(--border)}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid #ffe0ef}
+th{background:var(--thead);color:#6a294a;font-weight:800}
+td.icon{text-align:center;font-size:1.2rem}
+td.delete-col{width:180px;text-align:right}
+.current{font-size:1.15rem;font-weight:800;background:var(--card);border:2px solid var(--border);padding:12px 14px;border-radius:12px}
+.controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:var(--card);color:var(--text);
+  border:2px solid var(--border);font-weight:600;box-shadow:0 2px 6px var(--shadow)}
+.progress-bar-container{background:#f2e8ff;border-radius:8px;overflow:hidden;height:12px;margin-top:6px}
+.progress-bar{height:100%;background:linear-gradient(90deg,#4b1f84,#7b4cff);width:0%;transition:width .2s}
+.progress-bar.running{filter:brightness(1.12) saturate(1.05)}
+.warn{color:var(--accent-dark);font-weight:800;font-size:1.4rem}
+.alert{color:var(--accent);font-weight:700}
 
-h1 { font-weight: 800; color: var(--accent-strong); font-size: 2rem; margin-bottom: 12px; }
-/* Subtle text */
-.subtle {
-  color: var(--accent-dark); /* pastel lilac in both modes */
-  margin-bottom: 16px;
-}
+/* Focus large overlay */
+#focusOverlay{position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--bg1),var(--bg2))}
+.focus-card{background:var(--card);border:2px solid var(--border);padding:40px;border-radius:12px;box-shadow:0 12px 40px rgba(0,0,0,0.18);
+  width:96vw;max-width:960px;height:80vh;display:flex;flex-direction:column;justify-content:center;align-items:center}
+#focusOverlay h1{font-size:2.4rem;color:var(--accent-dark);margin-bottom:8px}
+#focusOverlay h2{font-size:1.5rem;color:#5a3b4c;margin-bottom:12px}
+#focusOverlay p{font-size:1.1rem;color:#5a3b4c;margin-bottom:20px;text-align:center}
 
+/* combo (type-or-pick) */
+.combo{position:relative}
+.combo input{padding-right:40px} /* reserve space for toggle */
+.combo .combo-toggle{position:absolute;right:6px;top:7px;padding:6px 8px;border-radius:8px;cursor:pointer;font-weight:700;background:transparent;border:none;color:var(--accent-dark)}
+.combo-list{position:absolute;left:0;right:0;top:calc(100% + 8px);z-index:1100;list-style:none;margin:0;padding:6px;border-radius:8px;border:2px solid var(--border);
+  background:var(--card);box-shadow:0 6px 18px rgba(0,0,0,0.08);max-height:220px;overflow:auto;display:none}
+.combo-list li{padding:8px;border-radius:8px;cursor:pointer}
+.combo-list li:hover{background:var(--thead)}
 
+/* Order overlay */
+#orderOverlay{position:fixed;inset:0;z-index:10000;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.25)}
+.order-card{background:var(--card);border-radius:12px;padding:18px;border:2px solid var(--border);width:92%;max-width:640px;box-shadow:0 10px 30px rgba(0,0,0,0.12)}
+.order-list{list-style:none;padding:8px;margin:12px 0;max-height:340px;overflow:auto}
+.order-list li{display:flex;align-items:center;justify-content:space-between;padding:8px;border-radius:8px;border:1px solid #f3e6fb;margin-bottom:8px}
+.order-controls button{margin-left:6px}
 
-
-
-.row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 16px; }
-.input {
-  display: flex; flex-direction: column; gap: 6px;
-  background: var(--card); border: 2px solid var(--border);
-  padding: 10px 12px; border-radius: 12px; min-width: 180px;
-  box-shadow: 0 2px 8px var(--shadow);
-}
-  
-/* Labels */
-label {
-  font-size: .85rem;
-  color: var(--accent-dark);
-}
-
-input[type="text"], input[type="number"] {
-  border: 1px solid #ffd1e6; border-radius: 10px; padding: 8px 10px; outline: none;
-}
-input[type="number"] { width: 110px; }
-
-.btn {
-  border: none; border-radius: 14px; padding: 10px 16px; font-weight: 700; cursor: pointer;
-  background: var(--accent); color: #fff;
-  box-shadow: 0 4px 10px rgba(136,77,255,0.15);
-  transition: .18s transform ease, .18s filter ease, .18s box-shadow ease;
-}
-.btn:hover { filter: brightness(1.03); box-shadow: 0 6px 12px rgba(136,77,255,0.18); }
-.btn:active { transform: translateY(1px); }
-.btn.secondary { background: #f3e8ff; color: #5a3b4c; font-weight: 700; }
-
-.section {
-  margin-top: 18px; padding: 14px; border: 2px dashed var(--border); border-radius: 16px;
-  background: var(--card); box-shadow: 0 2px 8px var(--shadow); position: relative;
-}
-.section h2 { margin-bottom: 8px; color: var(--accent-dark); font-size: 1.1rem; }
-
-table {
-  width: 100%; border-collapse: collapse; border-radius: 12px; overflow: hidden;
-  border: 2px solid var(--border); background: var(--card); box-shadow: 0 2px 6px var(--shadow);
-}
-th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #ffe0ef; }
-th { background: var(--thead); color: #6a294a; font-weight: 800; }
-tr:last-child td { border-bottom: none; }
-td.icon { font-size: 1.2rem; text-align:center; }
-td.delete-col { width: 30px; text-align: center; }
-
-.current {
-  font-size: 1.15rem; font-weight: 800; background: var(--card); border: 2px solid var(--border);
-  padding: 12px 14px; border-radius: 12px; box-shadow: 0 2px 6px var(--shadow);
-}
-
-.controls { display:flex; gap:10px; flex-wrap:wrap; }
-/* Pills */
-.pill { 
-  display:inline-flex; 
-  align-items:center; 
-  gap:8px; 
-  padding:8px 12px; 
-  border-radius:999px;
-
-  background: var(--card);   /* pastel white in light, muted purple in dark */
-  color: var(--text);        /* adjusts for mode */
-  border: 2px solid var(--border);
-  font-weight:600; 
-  box-shadow: 0 2px 6px var(--shadow); 
-}
-/* Hollow track + darker fill for clarity */
-.progress-bar-container {
-  background: #f2e8ff; /* lighter hollow background */
-  border-radius: 8px;
-  overflow: hidden;
-  height: 12px;
-  margin-top: 6px;
-}
-.progress-bar {
-  height: 100%;
-  background: linear-gradient(90deg, #4b1f84, #7b4cff); /* darker fill */
-  width: 0%;
-  transition: width 0.2s linear, filter 0.18s ease;
-}
-.progress-bar.running { filter: brightness(1.12) saturate(1.05); }
-
-.warn { color: var(--accent-dark); font-weight:800; font-size:1.4rem; transition: color .2s, font-size .2s; }
-.alert { color: var(--accent); font-weight:700; }
-
-#focusOverlay {
-  position: fixed; top:0; left:0; right:0; bottom:0;
-  background: linear-gradient(135deg, var(--bg1), var(--bg2));
-  display: none; align-items: center; justify-content: center; z-index: 9999;
-  flex-direction: column; pointer-events: all; text-align: center;
-}
-#focusOverlay h1 { font-size: 2rem; color: var(--accent-dark); margin-bottom: 6px; }
-#focusOverlay h2 { font-size: 1.1rem; color: #5a3b4c; margin-bottom: 10px; }
-#focusOverlay p { font-size: 1.2rem; color: #5a3b4c; margin-bottom: 18px; text-align:center; }
-
-@media (max-width:520px){
-  .row{ flex-direction: column; align-items: stretch; }
-  input[type="number"]{ width:100%; }
-  .input { min-width: auto; }
-}
+/* in-app confirm (reset) */
+#confirmOverlay{position:fixed;inset:0;z-index:10001;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.25)}
+.confirm-card{background:var(--card);border-radius:12px;padding:20px;border:2px solid var(--border);width:90%;max-width:480px;box-shadow:0 8px 24px rgba(0,0,0,0.12)}
+@media (max-width:520px){.row{flex-direction:column}.focus-card{height:90vh;padding:20px}}
 </style>
 </head>
 <body>
@@ -175,18 +98,26 @@ td.delete-col { width: 30px; text-align: center; }
   <p class="subtle">Plan your subjects and track your study time with precision.</p>
 
   <div class="row">
-    <div class="input">
+    <!-- combo input (type OR pick). Arrow toggles the suggestion list; adjusted padding avoids overlap -->
+    <div class="input" style="min-width:280px">
       <label for="subject">Subject</label>
-      <input id="subject" type="text" placeholder="e.g., Math"/>
+      <div class="combo">
+        <input id="subject" type="text" placeholder="e.g., Math" autocomplete="off">
+        <button id="subjectToggle" class="combo-toggle">▾</button>
+        <ul id="subjectList" class="combo-list"></ul>
+      </div>
     </div>
+
     <div class="input">
       <label for="planned">Planned Minutes (today)</label>
-      <input id="planned" type="number" min="1" step="1" placeholder="e.g., 45"/>
+      <input id="planned" type="number" min="1" step="1" placeholder="e.g., 45">
     </div>
+
     <div class="input">
       <label for="breakMin">Break Minutes</label>
-      <input id="breakMin" type="number" min="1" step="1" value="5"/>
+      <input id="breakMin" type="number" min="1" step="1" value="5">
     </div>
+
     <button class="btn" id="addBtn">Add Subject</button>
     <button class="btn secondary" id="darkModeBtn">🌙 Dark Mode</button>
     <div class="pill">💡 Keep this tab active for best timing accuracy.</div>
@@ -195,16 +126,7 @@ td.delete-col { width: 30px; text-align: center; }
   <div class="section">
     <h2>Plan for Today</h2>
     <table id="planTable">
-      <thead>
-        <tr>
-          <th></th>
-          <th>Subject</th>
-          <th>Planned (min)</th>
-          <th>Studied (min)</th>
-          <th>Remaining (min)</th>
-          <th></th>
-        </tr>
-      </thead>
+      <thead><tr><th></th><th>Subject</th><th>Planned (min)</th><th>Studied (min)</th><th>Remaining (min)</th><th></th></tr></thead>
       <tbody id="planBody"></tbody>
     </table>
   </div>
@@ -217,9 +139,9 @@ td.delete-col { width: 30px; text-align: center; }
 
   <div class="section">
     <h2>📆 Weekly Progress</h2>
-    <div style="display:flex; gap:10px; align-items:center; margin-bottom:8px;">
-      <label for="weeklyGoal" style="margin-right:6px;">Weekly Goal (hours)</label>
-      <input id="weeklyGoal" type="number" min="1" value="25" style="width:110px;"/>
+    <div style="display:flex;gap:10px;align-items:center;margin-bottom:8px">
+      <label for="weeklyGoal" style="margin-right:6px">Weekly Goal (hours)</label>
+      <input id="weeklyGoal" type="number" min="1" value="25" style="width:110px">
       <button class="btn secondary" id="saveWeeklyBtn">Save Goal</button>
     </div>
     <div id="weeklySummary"></div>
@@ -228,33 +150,83 @@ td.delete-col { width: 30px; text-align: center; }
 
   <div class="section">
     <h2>Current Task</h2>
-    <div class="row controls" style="margin-bottom:10px">
+
+    <!-- ⭐ Top line: Start-with + Arrange only (single neat line) -->
+    <div class="row" style="margin-bottom:8px; align-items:center;">
+      <label for="startSelect" style="align-self:center;color:var(--accent-dark);margin-right:8px">Start with:</label>
+      <select id="startSelect" style="border:1px solid #ffd1e6;border-radius:10px;padding:6px 8px;min-width:240px">
+        <option value="">(Use arranged order)</option>
+      </select>
+      <button id="arrangeBtn" class="btn secondary" style="margin-left:8px">Arrange Order</button>
+    </div>
+
+    <!-- ⭐ Second line: real controls (skip, start, pause, end, refresh, focus) -->
+    <div class="row controls" id="mainControls" style="margin-bottom:10px">
+      <button id="skipBreakBtn" class="btn secondary" style="display:none">Skip Break</button>
       <button class="btn" id="startBtn">Start Session</button>
       <button class="btn secondary" id="pauseBtn">Pause</button>
       <button class="btn secondary" id="endBtn">End Session</button>
       <button class="btn secondary" id="resetBtn">Refresh Tracker</button>
       <button class="btn" id="focusBtn">Focus Mode</button>
     </div>
+
+    <!-- ⭐ Once ended: only these two appear -->
+    <div class="row" id="endedControls" style="display:none; gap:10px; margin-bottom:10px;">
+      <button id="saveSessionBtn" class="btn">Save Session</button>
+      <button id="startNewBtn" class="btn secondary">Start New Session</button>
+    </div>
+
     <div class="current" id="display">No task running.</div>
   </div>
 </div>
 
+<!-- Focus overlay -->
 <div id="focusOverlay">
-  <h1 id="focusHeading">📚 Study Time</h1>
-  <h2 id="focusSubject">Subject: -</h2>
-  <p id="focusMsg">Stay on task — distractions are locked out!</p>
-  <div class="row" style="gap:10px;">
-    <button class="btn secondary" id="pauseFocus">Pause/Resume</button>
-    <button class="btn secondary" id="exitFocus">Exit Focus Mode</button>
+  <div class="focus-card">
+    <h1 id="focusHeading">📚 Study Time</h1>
+    <h2 id="focusSubject">Subject: -</h2>
+    <p id="focusMsg">Stay on task — distractions are locked out!</p>
+    <div class="row" style="justify-content:center;gap:12px">
+      <button class="btn secondary" id="pauseFocus">Pause/Resume</button>
+      <button class="btn secondary" id="exitFocus">Exit Focus Mode</button>
+      <button class="btn secondary" id="skipBreakFocus" style="display:none">Skip Break</button>
+    </div>
+  </div>
+</div>
+
+<!-- Arrange order overlay -->
+<div id="orderOverlay">
+  <div class="order-card">
+    <h2>Arrange Session Order</h2>
+    <p style="margin-bottom:8px;color:var(--accent-dark)">Use the arrows to set your exact study sequence.</p>
+    <ul id="orderList" class="order-list"></ul>
+    <div style="display:flex;gap:8px;justify-content:flex-end">
+      <button id="orderReset" class="btn secondary">Reset to default</button>
+      <button id="orderSave" class="btn">Save Order</button>
+      <button id="orderCancel" class="btn secondary">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- In-app confirm for Refresh Tracker -->
+<div id="confirmOverlay">
+  <div class="confirm-card">
+    <h3 style="margin-bottom:8px;color:var(--accent-dark)">Clear all data?</h3>
+    <p style="margin-bottom:16px">This will remove subjects and the last 7 days of studied records. This action cannot be undone.</p>
+    <div style="display:flex;gap:8px;justify-content:flex-end">
+      <button id="confirmCancel" class="btn secondary">Cancel</button>
+      <button id="confirmOk" class="btn">Yes, clear</button>
+    </div>
   </div>
 </div>
 
 <audio id="alertSound" src="https://www.soundjay.com/buttons/sounds/button-16.mp3" preload="auto"></audio>
 
 <script>
-// ----- data and DOM refs -----
+// ----- data and refs -----
 let subjects = JSON.parse(localStorage.getItem('subjects')) || [];
-let weeklyGoalHours = parseInt(localStorage.getItem('weeklyGoalHours'), 10) || 25;
+let weeklyGoalHours = parseInt(localStorage.getItem('weeklyGoalHours'),10) || 25;
+let sessionOrder = JSON.parse(localStorage.getItem('sessionOrder') || 'null');
 
 const planBody = document.getElementById('planBody');
 const display = document.getElementById('display');
@@ -263,13 +235,35 @@ const focusHeading = document.getElementById('focusHeading');
 const focusSubject = document.getElementById('focusSubject');
 const focusMsg = document.getElementById('focusMsg');
 const alertSound = document.getElementById('alertSound');
-
 const dailySummary = document.getElementById('dailySummary');
 const dailyBar = document.getElementById('dailyBar');
 const weeklySummary = document.getElementById('weeklySummary');
 const weeklyBar = document.getElementById('weeklyBar');
 const weeklyGoalInput = document.getElementById('weeklyGoal');
-const saveWeeklyBtn = document.getElementById('saveWeeklyBtn');
+
+const subjectInput = document.getElementById('subject');
+const subjectToggle = document.getElementById('subjectToggle');
+const subjectList = document.getElementById('subjectList');
+
+const startSelect = document.getElementById('startSelect');
+const arrangeBtn = document.getElementById('arrangeBtn');
+const skipBreakBtn = document.getElementById('skipBreakBtn');
+const skipBreakFocusBtn = document.getElementById('skipBreakFocus');
+
+const mainControls = document.getElementById('mainControls');
+const endedControls = document.getElementById('endedControls');
+const saveSessionBtn = document.getElementById('saveSessionBtn');
+const startNewBtn = document.getElementById('startNewBtn');
+
+const orderOverlay = document.getElementById('orderOverlay');
+const orderList = document.getElementById('orderList');
+const orderSave = document.getElementById('orderSave');
+const orderCancel = document.getElementById('orderCancel');
+const orderReset = document.getElementById('orderReset');
+
+const confirmOverlay = document.getElementById('confirmOverlay');
+const confirmOk = document.getElementById('confirmOk');
+const confirmCancel = document.getElementById('confirmCancel');
 
 weeklyGoalInput.value = weeklyGoalHours;
 
@@ -278,96 +272,221 @@ let startTime = 0, lastTick = 0, durationMs = 0, elapsedMs = 0, paused = false, 
 let breakDurationMs = 5 * 60000;
 let isBreak = false, currentSubject = null;
 
-// ----- helpers -----
+// ----- utilities -----
 function saveSubjects(){ localStorage.setItem('subjects', JSON.stringify(subjects)); }
-function mins(ms){ return Math.floor(ms / 60000); }
+function saveSessionOrder(){ localStorage.setItem('sessionOrder', JSON.stringify(sessionOrder)); }
+function mins(ms){ return Math.floor(ms/60000); }
 function hrs(ms){ return (ms/3600000).toFixed(1); }
-function fmtClock(ms){ if(ms < 0) ms = 0; const t = Math.floor(ms/1000); return `${String(Math.floor(t/60)).padStart(2,'0')}:${String(t%60).padStart(2,'0')}`; }
-function clamp(n, lo, hi){ return Math.max(lo, Math.min(hi, n)); }
+function fmtClock(ms){ if(ms<0)ms=0; const t=Math.floor(ms/1000); return `${String(Math.floor(t/60)).padStart(2,'0')}:${String(t%60).padStart(2,'0')}`; }
+function clamp(n,lo,hi){ return Math.max(lo,Math.min(hi,n)); }
 function getDateKey(date){ return 'studied_' + date.toISOString().slice(0,10); }
 function getTodayKey(){ return getDateKey(new Date()); }
+function escapeHtml(str){ return String(str).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
 
-// ----- rendering -----
+// defaults
+const defaultSubjects = ['Math','Physics','Chemistry','Biology','English','History','Computer Science','Economics','Art','Music','Philosophy','Psychology'];
+
+// ----- session order helpers (ensure valid indices) -----
+function normalizeSessionOrder(){
+  const n = subjects.length;
+  if(!Array.isArray(sessionOrder)){
+    sessionOrder = subjects.map((_,i)=>i);
+    saveSessionOrder();
+    return;
+  }
+  sessionOrder = sessionOrder.filter(i => Number.isInteger(i) && i >= 0 && i < n);
+  for(let i=0;i<n;i++) if(!sessionOrder.includes(i)) sessionOrder.push(i);
+  saveSessionOrder();
+}
+
+// ----- suggestion list (combo) -----
+function refreshRegisteredSubjects(){
+  const set = new Set(defaultSubjects.map(x=>x.trim()).filter(Boolean));
+  subjects.forEach(s => { if(s.name && s.name.trim()) set.add(s.name.trim()); });
+  subjectList.innerHTML = '';
+  Array.from(set).forEach(name => {
+    const li = document.createElement('li');
+    li.textContent = name;
+    li.addEventListener('click', ()=>{ subjectInput.value = name; subjectList.style.display='none'; });
+    subjectList.appendChild(li);
+  });
+}
+subjectToggle.addEventListener('click', (e)=>{ e.stopPropagation(); if(subjectList.style.display==='block') subjectList.style.display='none'; else subjectList.style.display='block'; });
+subjectInput.addEventListener('input', ()=>{ // live filter
+  const q = (subjectInput.value || '').toLowerCase();
+  const items = Array.from(subjectList.children);
+  let any=false;
+  items.forEach(li=>{
+    if(!q || li.textContent.toLowerCase().includes(q)){ li.style.display='block'; any=true; } else li.style.display='none';
+  });
+  subjectList.style.display = any ? 'block' : 'none';
+});
+document.addEventListener('click',(e)=>{ if(!document.querySelector('.combo')?.contains(e.target)) subjectList.style.display='none'; });
+
+// ----- start select refresh -----
+function refreshStartSelect(){
+  startSelect.innerHTML = '';
+  const def = document.createElement('option'); def.value = ''; def.textContent = '(Use arranged order)'; startSelect.appendChild(def);
+  normalizeSessionOrder();
+  sessionOrder.forEach((origIdx,pos)=>{
+    const opt = document.createElement('option');
+    opt.value = origIdx;
+    const name = subjects[origIdx] ? subjects[origIdx].name : `#${origIdx}`;
+    opt.textContent = `${pos+1}. ${name}`;
+    startSelect.appendChild(opt);
+  });
+}
+
+// ----- order overlay -----
+function renderOrderList(){
+  orderList.innerHTML = '';
+  normalizeSessionOrder();
+  sessionOrder.forEach((origIdx,pos)=>{
+    const li = document.createElement('li');
+    const left = document.createElement('div');
+    left.textContent = (subjects[origIdx] ? subjects[origIdx].name : `#${origIdx}`);
+    const controls = document.createElement('div');
+    controls.className = 'order-controls';
+    const up = document.createElement('button'); up.className='btn secondary'; up.textContent='↑';
+    const down = document.createElement('button'); down.className='btn secondary'; down.textContent='↓';
+    const trash = document.createElement('button'); trash.className='btn secondary'; trash.textContent='🗑️';
+    up.addEventListener('click', ()=>{ if(pos>0){ sessionOrder.splice(pos,1); sessionOrder.splice(pos-1,0,origIdx); renderOrderList(); }});
+    down.addEventListener('click', ()=>{ if(pos < sessionOrder.length - 1){ sessionOrder.splice(pos,1); sessionOrder.splice(pos+1,0,origIdx); renderOrderList(); }});
+    trash.addEventListener('click', ()=>{ sessionOrder.splice(pos,1); renderOrderList(); });
+    controls.appendChild(up); controls.appendChild(down); controls.appendChild(trash);
+    li.appendChild(left); li.appendChild(controls);
+    orderList.appendChild(li);
+  });
+}
+arrangeBtn.addEventListener('click', ()=>{ normalizeSessionOrder(); renderOrderList(); orderOverlay.style.display='flex'; });
+orderCancel.addEventListener('click', ()=>{ orderOverlay.style.display='none'; refreshStartSelect(); });
+orderSave.addEventListener('click', ()=>{ saveSessionOrder(); orderOverlay.style.display='none'; refreshStartSelect(); });
+orderReset.addEventListener('click', ()=>{ sessionOrder = subjects.map((_,i)=>i); renderOrderList(); });
+
+// ----- render table with inline edit (✅/✖) -----
 function renderPlan(){
+  normalizeSessionOrder();
   planBody.innerHTML = '';
-  subjects.forEach((s, i) => {
+  subjects.forEach((s,i)=>{
     const tr = document.createElement('tr');
     let icon = '📚';
     const n = (s.name||'').toLowerCase();
-    
-    if(n.includes('math')) icon = '🧮';             // Mathematics
-    else if(n.includes('physics')) icon = '📐';     // Physics
-    else if(n.includes('chem')) icon = '🧪';        // Chemistry
-    else if(n.includes('bio')) icon = '🧬';         // Biology
-    else if(n.includes('english') || n.includes('literature')) icon = '📖'; // English / Literature
-    else if(n.includes('computer science') || n.includes('cs')) icon = '🖥️'; // Computer Science
-    else if(n.includes('it') || n.includes('information technology')) icon = '💻'; // IT
-    else if(n.includes('account')) icon = '🧾';     // Accounting
-    else if(n.includes('econ')) icon = '📊';        // Economics
-    else if(n.includes('business') || n.includes('management')) icon = '💼'; // Business / Management
-    else if(n.includes('law')) icon = '⚖️';         // Law
-    else if(n.includes('psych')) icon = '🧠';       // Psychology
-    else if(n.includes('history')) icon = '📜';     // History
-    else if(n.includes('geo')) icon = '🌍';         // Geography
-    else if(n.includes('art') || n.includes('design')) icon = '🎨'; // Art / Design
-    else if(n.includes('music')) icon = '🎵';       // Music
-    else if(n.includes('philosophy')) icon = '🤔';  // Philosophy
-    else if(n.includes('sociology')) icon = '🧑‍🤝‍🧑'; // Sociology
-    else if(n.includes('political')) icon = '🗳️';  // Political Science
-    const planned = mins(s.plannedMs || 0);
-    const studied = mins(s.studiedMs || 0);
+    if(n.includes('math')) icon='🧮'; else if(n.includes('physics')) icon='📐'; else if(n.includes('chem')) icon='🧪';
+    else if(n.includes('bio')) icon='🧬'; else if(n.includes('english')) icon='📖'; else if(n.includes('computer science')||n.includes('cs')) icon='🖥️';
+    else if(n.includes('it')) icon='💻'; else if(n.includes('account')) icon='🧾'; else if(n.includes('econ')) icon='📊';
+    else if(n.includes('business')) icon='💼'; else if(n.includes('law')) icon='⚖️'; else if(n.includes('psych')) icon='🧠';
+    else if(n.includes('history')) icon='📜'; else if(n.includes('geo')) icon='🌍'; else if(n.includes('art')) icon='🎨';
+    else if(n.includes('music')) icon='🎵'; else if(n.includes('philosophy')) icon='🤔'; else if(n.includes('sociology')) icon='🧑‍🤝‍🧑';
+    const planned = mins(s.plannedMs||0);
+    const studied = mins(s.studiedMs||0);
     const remaining = Math.max(0, planned - studied);
-
-    const pct = s.plannedMs && s.plannedMs > 0 ? Math.min(100, (s.studiedMs / s.plannedMs) * 100) : 0;
+    const pct = s.plannedMs && s.plannedMs>0 ? Math.min(100, (s.studiedMs/s.plannedMs)*100) : 0;
     const pctStr = pct.toFixed(1) + '%';
-
     tr.innerHTML = `
       <td class="icon">${icon}</td>
-      <td class="subject-cell">${s.name}
-        <div class="progress-bar-container">
-          <div class="progress-bar" data-idx="${i}" style="width:${pctStr}"></div>
-        </div>
+      <td class="subject-cell">
+        <span class="subjectName">${escapeHtml(s.name)}</span>
+        <div class="progress-bar-container"><div class="progress-bar" data-idx="${i}" style="width:${pctStr}"></div></div>
       </td>
-      <td>${planned}</td>
+      <td class="planned">${planned}</td>
       <td>${studied}</td>
       <td>${remaining}</td>
-      <td class="delete-col"><button class="btn secondary deleteBtn" style="display:none;">🗑️</button></td>
+      <td class="delete-col">
+        <button class="btn secondary editBtn" style="display:none">✏️</button>
+        <button class="btn secondary deleteBtn" style="display:none">🗑️</button>
+      </td>
     `;
-
     planBody.appendChild(tr);
 
-    tr.addEventListener('mouseenter', () => { tr.querySelector('.deleteBtn').style.display = 'inline-block'; });
-    tr.addEventListener('mouseleave', () => { tr.querySelector('.deleteBtn').style.display = 'none'; });
-    tr.querySelector('.deleteBtn').addEventListener('click', () => { subjects.splice(i,1); renderPlan(); saveSubjects(); updateSummaries(); });
+    tr.addEventListener('mouseenter', ()=>{
+      const a = tr.querySelector('.deleteBtn'); const b = tr.querySelector('.editBtn');
+      if(a) a.style.display='inline-block'; if(b) b.style.display='inline-block';
+    });
+    tr.addEventListener('mouseleave', ()=>{
+      const a = tr.querySelector('.deleteBtn'); const b = tr.querySelector('.editBtn');
+      if(a) a.style.display='none'; if(b) b.style.display='none';
+    });
+
+    // delete
+    tr.querySelector('.deleteBtn').addEventListener('click', ()=>{
+      subjects.splice(i,1); saveSubjects(); normalizeSessionOrder(); renderPlan(); updateSummaries(); refreshRegisteredSubjects(); refreshStartSelect();
+    });
+
+    // inline edit: only ✅ & ✖ show while editing (no bin)
+    tr.querySelector('.editBtn').addEventListener('click', ()=>{
+      const nameSpan = tr.querySelector('.subjectName');
+      const plannedCell = tr.querySelector('.planned');
+      const editBtn = tr.querySelector('.editBtn');
+      const delBtn = tr.querySelector('.deleteBtn');
+      const currentName = nameSpan.textContent;
+      const currentPlanned = parseInt(plannedCell.textContent,10) || mins(s.plannedMs);
+
+      if(editBtn) editBtn.style.display='none';
+      if(delBtn) delBtn.style.display='none';
+
+      nameSpan.innerHTML = `<input type="text" value="${escapeHtml(currentName)}" style="width:92%;box-sizing:border-box">`;
+      plannedCell.innerHTML = `<input type="number" value="${currentPlanned}" min="1" style="width:80px">`;
+
+      const saveBtn = document.createElement('button'); saveBtn.className='btn secondary saveBtn'; saveBtn.textContent='✅'; saveBtn.style.marginLeft='8px';
+      const cancelBtn = document.createElement('button'); cancelBtn.className='btn secondary cancelBtn'; cancelBtn.textContent='✖'; cancelBtn.style.marginLeft='8px';
+      tr.querySelector('td.delete-col').appendChild(saveBtn); tr.querySelector('td.delete-col').appendChild(cancelBtn);
+
+      saveBtn.addEventListener('click', ()=>{
+        const newName = (nameSpan.querySelector('input').value || currentName).trim();
+        let newPlanned = parseInt(plannedCell.querySelector('input').value,10);
+        if(!newPlanned || newPlanned <= 0) newPlanned = currentPlanned;
+        s.name = newName;
+        s.plannedMs = newPlanned * 60000;
+        s.studiedMs = Math.min(s.studiedMs || 0, s.plannedMs);
+        saveSubjects(); normalizeSessionOrder(); renderPlan(); updateSummaries(); refreshRegisteredSubjects(); refreshStartSelect();
+      });
+
+      cancelBtn.addEventListener('click', ()=>{
+        nameSpan.textContent = currentName; plannedCell.textContent = currentPlanned;
+        saveBtn.remove(); cancelBtn.remove();
+        if(editBtn) editBtn.style.display='inline-block';
+        if(delBtn) delBtn.style.display='inline-block';
+      });
+    });
+
   });
 
-  // mark running progress bar visually
+  // running highlight
   document.querySelectorAll('.progress-bar').forEach(pb => pb.classList.remove('running'));
   if(currentSubject){
-    const idx = subjects.indexOf(currentSubject);
-    if(idx >= 0){
-      const el = document.querySelector(`.progress-bar[data-idx='${idx}']`);
+    const ii = subjects.indexOf(currentSubject);
+    if(ii >= 0){
+      const el = document.querySelector(`.progress-bar[data-idx='${ii}']`);
       if(el) el.classList.add('running');
     }
   }
 
   saveSubjects();
+  refreshRegisteredSubjects();
+  refreshStartSelect();
+  renderOrderList();
 }
 
-// ----- queue & timer -----
-function buildQueue(){ queue = subjects.map(s => ({ kind:'study', subject: s })); }
+// ----- queue & timer (using sessionOrder: queue entries hold origIndex) -----
+function buildQueue(){
+  normalizeSessionOrder();
+  queue = sessionOrder.map(origIdx => ({ kind:'study', subject: subjects[origIdx], origIndex: origIdx }));
+}
 function stopTimer(){ if(timerId){ clearInterval(timerId); timerId = null; } }
 
 function startNext(){
+  if(skipBreakBtn) skipBreakBtn.style.display='none';
+  if(skipBreakFocusBtn) skipBreakFocusBtn.style.display='none';
+
   stopTimer();
   idx++;
   if(idx >= queue.length){ startBreak(); return; }
   const item = queue[idx];
   startTime = Date.now(); lastTick = startTime; elapsedMs = 0; paused = false;
   currentSubject = item.subject;
-  const remaining = Math.max(0, item.subject.plannedMs - item.subject.studiedMs);
+  const remaining = Math.max(0, (item.subject.plannedMs || 0) - (item.subject.studiedMs || 0));
   if(remaining === 0){ startNext(); return; }
-  durationMs = remaining; baseStudiedAtStart = item.subject.studiedMs;
+  durationMs = remaining; baseStudiedAtStart = item.subject.studiedMs || 0;
 
   display.textContent = `Studying ${item.subject.name} — ${fmtClock(durationMs)} remaining`;
   focusHeading.textContent = "📚 Study Time";
@@ -377,22 +496,18 @@ function startNext(){
 
   isBreak = false;
   renderPlan();
-  timerId = setInterval(() => tick(item), 200);
+  timerId = setInterval(()=>tick(item),200);
 }
 
 function tick(item){
   if(paused) return;
   const now = Date.now();
-  const delta = now - lastTick;
-  lastTick = now;
-  elapsedMs += delta;
+  const delta = now - lastTick; lastTick = now; elapsedMs += delta;
   const remain = clamp(durationMs - elapsedMs, 0, durationMs);
 
   if(!isBreak && item && item.subject){
     item.subject.studiedMs = clamp(baseStudiedAtStart + elapsedMs, 0, item.subject.plannedMs);
-    // update only the relevant progress bar / row for efficiency
-    renderPlan();
-    updateSummaries();
+    renderPlan(); updateSummaries();
   }
 
   if(remain <= 60000 && remain > 10000){
@@ -407,27 +522,26 @@ function tick(item){
   }
 
   if(elapsedMs >= durationMs){
-    stopTimer();
-    alertSound.play();
+    stopTimer(); alertSound.play();
     if(!isBreak){
       if(item && item.subject){
         item.subject.studiedMs = Math.min(item.subject.studiedMs, item.subject.plannedMs);
-        saveSubjects();
-        renderPlan();
-        updateSummaries();
+        saveSubjects(); renderPlan(); updateSummaries();
       }
       startBreak();
     } else {
       focusOverlay.style.display = 'none';
       display.textContent = '🎉 Break complete!';
       currentSubject = null;
+      if(skipBreakBtn) skipBreakBtn.style.display='none';
+      if(skipBreakFocusBtn) skipBreakFocusBtn.style.display='none';
       renderPlan();
     }
   }
 }
 
 function startBreak(){
-  breakDurationMs = (parseInt(document.getElementById('breakMin').value, 10) || 5) * 60000;
+  breakDurationMs = (parseInt(document.getElementById('breakMin').value,10) || 5) * 60000;
   startTime = Date.now(); lastTick = startTime; elapsedMs = 0; paused = false;
   durationMs = breakDurationMs; isBreak = true; currentSubject = null;
 
@@ -435,8 +549,12 @@ function startBreak(){
   focusSubject.textContent = "";
   focusMsg.textContent = "Take a breather — relax for a bit!";
   focusOverlay.style.display = 'flex';
+
+  if(skipBreakBtn) skipBreakBtn.style.display = 'inline-block';
+  if(skipBreakFocusBtn) skipBreakFocusBtn.style.display = 'inline-block';
+
   renderPlan();
-  timerId = setInterval(() => tick({}), 200);
+  timerId = setInterval(()=>tick({}),200);
 }
 
 // ----- summaries -----
@@ -445,117 +563,143 @@ function updateSummaries(){
   const studiedDayMs = subjects.reduce((acc,s)=>acc + (s.studiedMs || 0), 0);
   const pctDay = plannedDayMs>0? Math.round((studiedDayMs/plannedDayMs)*100) : 0;
   dailySummary.textContent = `Today: Planned ${hrs(plannedDayMs)}h — Studied ${hrs(studiedDayMs)}h (${pctDay}%)`;
-  dailyBar.style.width = Math.min(100, pctDay) + '%';
-
-  // save today's studied total (persist per-date)
+  dailyBar.style.width = Math.min(100,pctDay) + '%';
   localStorage.setItem(getTodayKey(), studiedDayMs);
 
-  // weekly totals (last 7 days including today)
   let studiedWeekMs = 0;
-  for(let i=0;i<7;i++){
-    const d = new Date(); d.setDate(d.getDate() - i);
-    const key = getDateKey(d);
-    studiedWeekMs += parseInt(localStorage.getItem(key) || '0', 10);
-  }
-
+  for(let i=0;i<7;i++){ const d=new Date(); d.setDate(d.getDate()-i); studiedWeekMs += parseInt(localStorage.getItem(getDateKey(d))||'0',10); }
   const weekTargetMs = (parseFloat(localStorage.getItem('weeklyGoalHours')) || weeklyGoalHours) * 3600000;
-  const pctWeek = weekTargetMs>0 ? Math.round((studiedWeekMs / weekTargetMs) * 100) : 0;
+  const pctWeek = weekTargetMs>0 ? Math.round((studiedWeekMs/weekTargetMs)*100) : 0;
   weeklySummary.textContent = `Weekly Goal: ${ (localStorage.getItem('weeklyGoalHours') || weeklyGoalHours) }h — Studied ${hrs(studiedWeekMs)}h (${pctWeek}%)`;
-  weeklyBar.style.width = Math.min(100, pctWeek) + '%';
+  weeklyBar.style.width = Math.min(100,pctWeek) + '%';
 }
 
-// ----- UI / events -----
+// ----- UI events -----
 // Add subject
-document.getElementById('addBtn').addEventListener('click', () => {
-  const name = document.getElementById('subject').value.trim();
-  const planned = parseInt(document.getElementById('planned').value, 10);
+document.getElementById('addBtn').addEventListener('click', ()=>{
+  const name = (subjectInput.value || '').trim();
+  const planned = parseInt(document.getElementById('planned').value,10);
   if(!name){ alert('Enter subject'); return; }
   if(!planned || planned <= 0){ alert('Enter valid planned minutes'); return; }
   subjects.push({ name, plannedMs: planned * 60000, studiedMs: 0 });
-  document.getElementById('subject').value = ''; document.getElementById('planned').value = '';
-  saveSubjects(); renderPlan(); updateSummaries();
+  subjectInput.value = ''; document.getElementById('planned').value = '';
+  saveSubjects(); normalizeSessionOrder(); renderPlan(); updateSummaries();
 });
 
-// Start/pause/end/reset
-document.getElementById('startBtn').addEventListener('click', () => {
+// START: uses startSelect to pick starting origIndex (⭐)
+document.getElementById('startBtn').addEventListener('click', ()=>{
   if(subjects.length === 0){ alert('Add at least one subject'); return; }
-  buildQueue(); idx = -1; startNext();
+  buildQueue();
+  let startPos = -1;
+  const val = startSelect.value;
+  if(val !== ''){
+    const origIndex = parseInt(val,10);
+    startPos = queue.findIndex(q => q.origIndex === origIndex);
+  }
+  idx = (startPos >= 0) ? (startPos - 1) : -1;
+  startNext();
+  // ensure endedControls are hidden
+  endedControls.style.display = 'none';
+  mainControls.style.display = 'flex';
 });
 
-document.getElementById('pauseBtn').addEventListener('click', () => {
-  paused = !paused;
-  document.getElementById('pauseBtn').textContent = paused ? 'Resume' : 'Pause';
-  if (!paused) { lastTick = Date.now(); }
+// Pause/resume
+document.getElementById('pauseBtn').addEventListener('click', ()=>{
+  paused = !paused; document.getElementById('pauseBtn').textContent = paused ? 'Resume' : 'Pause'; if(!paused) lastTick = Date.now();
 });
 
-document.getElementById('endBtn').addEventListener('click', () => {
+// END SESSION: hide main controls, show Save / Start New (⭐)
+document.getElementById('endBtn').addEventListener('click', ()=>{
   stopTimer(); alertSound.play();
   display.textContent = '⏹️ Session ended.';
   focusOverlay.style.display = 'none';
   isBreak = false; currentSubject = null;
   saveSubjects(); renderPlan(); updateSummaries();
+
+  // hide main controls, show ended controls
+  mainControls.style.display = 'none';
+  endedControls.style.display = 'flex';
 });
 
-// Reset (clear subjects and last 7 days data — keeps dark mode)
-document.getElementById('resetBtn').addEventListener('click', () => {
-  if(confirm('Clear all data? This will remove subjects and the last 7 days of studied records.')){
-    subjects = []; saveSubjects(); renderPlan();
-    for(let i=0;i<7;i++){
-      const d = new Date(); d.setDate(d.getDate() - i);
-      localStorage.removeItem(getDateKey(d));
-    }
-    localStorage.removeItem('weeklyGoalHours');
-    stopTimer(); display.textContent = 'No task running.';
-    focusOverlay.style.display = 'none';
-    updateSummaries();
-  }
+// SAVE SESSION: snapshot store (localStorage array)
+saveSessionBtn.addEventListener('click', ()=>{
+  const saved = JSON.parse(localStorage.getItem('savedSessions') || '[]');
+  const snapshot = {
+    at: (new Date()).toISOString(),
+    subjects: JSON.parse(JSON.stringify(subjects)),
+    totals: { plannedHours: subjects.reduce((a,s)=>a + ((s.plannedMs||0)),0), studiedHours: subjects.reduce((a,s)=>a + ((s.studiedMs||0)),0)}
+  };
+  saved.push(snapshot);
+  localStorage.setItem('savedSessions', JSON.stringify(saved));
+  // feedback
+  display.textContent = '✅ Session saved.';
+  // show main controls back so user can start new session if they want
+  mainControls.style.display = 'flex';
+  endedControls.style.display = 'none';
+});
+
+// START NEW SESSION (after ending)
+startNewBtn.addEventListener('click', ()=>{
+  // reset state indices (but keep subjects)
+  stopTimer();
+  idx = -1; timerId = null; isBreak = false; currentSubject = null; paused = false;
+  display.textContent = 'No task running.';
+  focusOverlay.style.display = 'none';
+  mainControls.style.display = 'flex';
+  endedControls.style.display = 'none';
+  renderPlan(); updateSummaries();
+});
+
+// RESET / Refresh Tracker: open in-app confirm modal (⭐)
+document.getElementById('resetBtn').addEventListener('click', ()=>{ confirmOverlay.style.display = 'flex'; });
+confirmCancel.addEventListener('click', ()=>{ confirmOverlay.style.display = 'none'; });
+confirmOk.addEventListener('click', ()=>{
+  confirmOverlay.style.display = 'none';
+  subjects = []; saveSubjects(); renderPlan();
+  for(let i=0;i<7;i++){ const d=new Date(); d.setDate(d.getDate()-i); localStorage.removeItem(getDateKey(d)); }
+  localStorage.removeItem('weeklyGoalHours'); localStorage.removeItem('sessionOrder');
+  stopTimer(); display.textContent = 'No task running.'; focusOverlay.style.display = 'none';
+  updateSummaries(); alert('Tracker cleared.');
 });
 
 // Focus overlay controls
-document.getElementById('focusBtn').addEventListener('click', () => { focusOverlay.style.display = 'flex'; });
-document.getElementById('exitFocus').addEventListener('click', () => { focusOverlay.style.display = 'none'; });
-document.getElementById('pauseFocus').addEventListener('click', () => {
-  paused = !paused; document.getElementById('pauseBtn').textContent = paused ? 'Resume' : 'Pause'; if (!paused) { lastTick = Date.now(); }
-});
+document.getElementById('focusBtn').addEventListener('click', ()=>{ focusOverlay.style.display = 'flex'; });
+document.getElementById('exitFocus').addEventListener('click', ()=>{ focusOverlay.style.display = 'none'; });
+document.getElementById('pauseFocus').addEventListener('click', ()=>{ paused = !paused; document.getElementById('pauseBtn').textContent = paused ? 'Resume' : 'Pause'; if(!paused) lastTick = Date.now(); });
 
-// Dark mode toggle
+// Shared Skip Break handler (works in both places) (⭐)
+function handleSkipBreak(){
+  if(!isBreak) return;
+  stopTimer();
+  isBreak = false;
+  if(skipBreakBtn) skipBreakBtn.style.display='none';
+  if(skipBreakFocusBtn) skipBreakFocusBtn.style.display='none';
+  if(idx + 1 < queue.length){ startNext(); }
+  else { display.textContent = '⏹️ Session ended.'; focusOverlay.style.display = 'none'; currentSubject = null; renderPlan(); updateSummaries(); }
+}
+skipBreakBtn.addEventListener('click', handleSkipBreak);
+skipBreakFocusBtn.addEventListener('click', handleSkipBreak);
+
+// dark mode
 const darkModeBtn = document.getElementById('darkModeBtn');
 const isDark = localStorage.getItem('darkMode') === 'true';
-if (isDark) { document.body.classList.add('dark'); darkModeBtn.textContent = '🌖'; } else { darkModeBtn.textContent = '🌒'; }
-darkModeBtn.addEventListener('click', () => {
-  document.body.classList.toggle('dark');
-  const active = document.body.classList.contains('dark');
-  localStorage.setItem('darkMode', active);
-  darkModeBtn.textContent = active ? '🌖' : '🌒';
-});
+if(isDark){ document.body.classList.add('dark'); darkModeBtn.textContent = '🌖'; } else darkModeBtn.textContent = '🌒';
+darkModeBtn.addEventListener('click', ()=>{ document.body.classList.toggle('dark'); const active=document.body.classList.contains('dark'); localStorage.setItem('darkMode', active); darkModeBtn.textContent = active ? '🌖' : '🌒'; });
 
+// weekly goal save
+document.getElementById('saveWeeklyBtn').addEventListener('click', ()=>{ const val = parseFloat(weeklyGoalInput.value); if(!val || val<=0){ alert('Enter a valid weekly hours goal'); return; } weeklyGoalHours = val; localStorage.setItem('weeklyGoalHours', weeklyGoalHours); updateSummaries(); alert('Weekly goal saved.'); });
 
-// Weekly goal save
-saveWeeklyBtn.addEventListener('click', () => {
-  const val = parseFloat(weeklyGoalInput.value);
-  if(!val || val <= 0){ alert('Enter a valid weekly hours goal'); return; }
-  weeklyGoalHours = val;
-  localStorage.setItem('weeklyGoalHours', weeklyGoalHours);
-  updateSummaries();
-  alert('Weekly goal saved.');
-});
-
-// also update live when editing
-weeklyGoalInput.addEventListener('input', () => {
-  const v = parseFloat(weeklyGoalInput.value);
-  if(v && v > 0) {
-    weeklyBar.style.opacity = '0.9';
-  }
-});
-
-// initial render
+// ----- initial setup -----
+normalizeSessionOrder();
 renderPlan();
 updateSummaries();
-
-// ensure summaries update if the page remains open and time passes (e.g., midnight transfer)
 setInterval(updateSummaries, 60000);
+
+// populate initial suggestions
+refreshRegisteredSubjects();
 
 </script>
 </body>
 </html>
+
 
