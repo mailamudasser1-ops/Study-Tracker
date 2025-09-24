@@ -30,6 +30,7 @@ body.dark {
   --text:#d8c6f7;
   --shadow: rgba(0,0,0,0.5);
 }
+
 *{box-sizing:border-box;margin:0;padding:0}
 body{
   font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
@@ -126,7 +127,7 @@ td.delete-col{width:180px;text-align:right}
     </div>
 
     <button class="btn" id="addBtn">Add Subject</button>
-    <button class="btn secondary" id="darkModeBtn">🌙 Dark Mode</button>
+    <button class="btn secondary" id="darkModeBtn"> Dark Mode</button>
     <div class="pill">💡 Keep this tab active for best timing accuracy.</div>
   </div>
 
@@ -158,7 +159,7 @@ td.delete-col{width:180px;text-align:right}
   <div class="section">
     <h2>Current Task</h2>
 
-    <!-- ⭐ Top line: Start-with + Arrange only (single neat line) -->
+    <!-- Top line: Start-with + Arrange only (single neat line) -->
     <div class="row" style="margin-bottom:8px; align-items:center;">
       <label for="startSelect" style="align-self:center;color:var(--accent-dark);margin-right:8px">Start with:</label>
       <select id="startSelect" style="border:1px solid #ffd1e6;border-radius:10px;padding:6px 8px;min-width:240px">
@@ -167,7 +168,7 @@ td.delete-col{width:180px;text-align:right}
       <button id="arrangeBtn" class="btn secondary" style="margin-left:8px">Arrange Order</button>
     </div>
 
-    <!-- ⭐ Second line: real controls (skip, start, pause, end, refresh, focus) -->
+    <!-- Second line: real controls (skip, start, pause, end, refresh, focus) -->
     <div class="row controls" id="mainControls" style="margin-bottom:10px">
       <button id="skipBreakBtn" class="btn secondary" style="display:none">Skip Break</button>
       <button class="btn" id="startBtn">Start Session</button>
@@ -177,7 +178,7 @@ td.delete-col{width:180px;text-align:right}
       <button class="btn" id="focusBtn">Focus Mode</button>
     </div>
 
-    <!-- ⭐ Once ended: only these two appear -->
+    <!-- Once ended: only these two appear -->
     <div class="row" id="endedControls" style="display:none; gap:10px; margin-bottom:10px;">
       <button id="saveSessionBtn" class="btn">Save Session</button>
       <button id="startNewBtn" class="btn secondary">Start New Session</button>
@@ -293,7 +294,7 @@ function escapeHtml(str){ return String(str).replace(/[&<>"']/g,m=>({'&':'&amp;'
 // defaults
 const defaultSubjects = ['Math','Physics','Chemistry','Biology','English','History','Computer Science','Economics','Art','Music','Philosophy','Psychology'];
 
-// ----- session order helpers (ensure valid indices) -----
+// ----- session order helpers -----
 function normalizeSessionOrder(){
   const n = subjects.length;
   if(!Array.isArray(sessionOrder)){
@@ -370,7 +371,7 @@ orderCancel.addEventListener('click', ()=>{ orderOverlay.style.display='none'; r
 orderSave.addEventListener('click', ()=>{ saveSessionOrder(); orderOverlay.style.display='none'; refreshStartSelect(); });
 orderReset.addEventListener('click', ()=>{ sessionOrder = subjects.map((_,i)=>i); renderOrderList(); });
 
-// ----- render table with inline edit (✅/✖) -----
+// ----- render table with inline edit (✅/❌) -----
 function renderPlan(){
   normalizeSessionOrder();
   planBody.innerHTML = '';
@@ -378,8 +379,8 @@ function renderPlan(){
     const tr = document.createElement('tr');
     let icon = '📚';
     const n = (s.name||'').toLowerCase();
-    if(n.includes('math')) icon='🧮'; else if(n.includes('physics')) icon='📐'; else if(n.includes('chem')) icon='🧪';
-    else if(n.includes('bio')) icon='🧬'; else if(n.includes('english')) icon='📖'; else if(n.includes('computer science')||n.includes('cs')) icon='🖥️';
+    if(n.includes('math')) icon='🧮'; else if(n.includes('physics')) icon='📐'; else if(n.includes('chem')) icon='⚗️';
+    else if(n.includes('bio')) icon='🧬'; else if(n.includes('english')) icon='📝'; else if(n.includes('computer science')||n.includes('cs')) icon='🖥️';
     else if(n.includes('it')) icon='💻'; else if(n.includes('account')) icon='🧾'; else if(n.includes('econ')) icon='📊';
     else if(n.includes('business')) icon='💼'; else if(n.includes('law')) icon='⚖️'; else if(n.includes('psych')) icon='🧠';
     else if(n.includes('history')) icon='📜'; else if(n.includes('geo')) icon='🌍'; else if(n.includes('art')) icon='🎨';
@@ -419,7 +420,7 @@ function renderPlan(){
       subjects.splice(i,1); saveSubjects(); normalizeSessionOrder(); renderPlan(); updateSummaries(); refreshRegisteredSubjects(); refreshStartSelect();
     });
 
-    // inline edit: only ✅ & ✖ show while editing (no bin)
+    // inline edit: 
     tr.querySelector('.editBtn').addEventListener('click', ()=>{
       const nameSpan = tr.querySelector('.subjectName');
       const plannedCell = tr.querySelector('.planned');
@@ -435,7 +436,7 @@ function renderPlan(){
       plannedCell.innerHTML = `<input type="number" value="${currentPlanned}" min="1" style="width:80px">`;
 
       const saveBtn = document.createElement('button'); saveBtn.className='btn secondary saveBtn'; saveBtn.textContent='✅'; saveBtn.style.marginLeft='8px';
-      const cancelBtn = document.createElement('button'); cancelBtn.className='btn secondary cancelBtn'; cancelBtn.textContent='✖'; cancelBtn.style.marginLeft='8px';
+      const cancelBtn = document.createElement('button'); cancelBtn.className='btn secondary cancelBtn'; cancelBtn.textContent='❌'; cancelBtn.style.marginLeft='8px';
       tr.querySelector('td.delete-col').appendChild(saveBtn); tr.querySelector('td.delete-col').appendChild(cancelBtn);
 
       saveBtn.addEventListener('click', ()=>{
@@ -474,7 +475,7 @@ function renderPlan(){
   renderOrderList();
 }
 
-// ----- queue & timer (using sessionOrder: queue entries hold origIndex) -----
+// ----- queue & timer  -----
 function buildQueue(){
   normalizeSessionOrder();
   queue = sessionOrder.map(origIdx => ({ kind:'study', subject: subjects[origIdx], origIndex: origIdx }));
@@ -593,7 +594,7 @@ document.getElementById('addBtn').addEventListener('click', ()=>{
   saveSubjects(); normalizeSessionOrder(); renderPlan(); updateSummaries();
 });
 
-// START: uses startSelect to pick starting origIndex (⭐)
+// START: uses startSelect to pick starting origIndex 
 document.getElementById('startBtn').addEventListener('click', ()=>{
   if(subjects.length === 0){ alert('Add at least one subject'); return; }
   buildQueue();
@@ -615,7 +616,7 @@ document.getElementById('pauseBtn').addEventListener('click', ()=>{
   paused = !paused; document.getElementById('pauseBtn').textContent = paused ? 'Resume' : 'Pause'; if(!paused) lastTick = Date.now();
 });
 
-// END SESSION: hide main controls, show Save / Start New (⭐)
+// END SESSION: hide main controls, show Save / Start New 
 document.getElementById('endBtn').addEventListener('click', ()=>{
   stopTimer(); alertSound.play();
   display.textContent = '⏹️ Session ended.';
@@ -657,7 +658,7 @@ startNewBtn.addEventListener('click', ()=>{
   renderPlan(); updateSummaries();
 });
 
-// RESET / Refresh Tracker: open in-app confirm modal (⭐)
+// RESET / Refresh Tracker: open in-app  
 document.getElementById('resetBtn').addEventListener('click', ()=>{ confirmOverlay.style.display = 'flex'; });
 confirmCancel.addEventListener('click', ()=>{ confirmOverlay.style.display = 'none'; });
 confirmOk.addEventListener('click', ()=>{
@@ -674,7 +675,7 @@ document.getElementById('focusBtn').addEventListener('click', ()=>{ focusOverlay
 document.getElementById('exitFocus').addEventListener('click', ()=>{ focusOverlay.style.display = 'none'; });
 document.getElementById('pauseFocus').addEventListener('click', ()=>{ paused = !paused; document.getElementById('pauseBtn').textContent = paused ? 'Resume' : 'Pause'; if(!paused) lastTick = Date.now(); });
 
-// Shared Skip Break handler (works in both places) (⭐)
+// Shared Skip Break handler 
 function handleSkipBreak(){
   if(!isBreak) return;
   stopTimer();
@@ -708,6 +709,7 @@ refreshRegisteredSubjects();
 </script>
 </body>
 </html>
+
 
 
 
