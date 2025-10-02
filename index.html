@@ -26,7 +26,7 @@ body.dark {
   --accent:#c9a4ff;
   --accent-strong:#d7b8ff;
   --accent-dark:#a67de8;
-  --thead:#3a3a3a; /* was #5a3e7a */
+  --thead:#a67de8; 
   --text:#d8c6f7;
   --shadow: rgba(0,0,0,0.5);
 }
@@ -56,7 +56,7 @@ input[type="number"]{width:110px}
 .section{margin-top:18px;padding:14px;border:2px dashed var(--border);border-radius:16px;background:var(--card)}
 .section h2{margin-bottom:8px;color:var(--accent-dark);font-size:1.1rem}
 table{width:100%;border-collapse:collapse;border-radius:12px;overflow:hidden;border:2px solid var(--border)}
-th,td{padding:10px 12px;text-align:left;border-bottom:1px solid #ffe0ef}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid #ffe0ef;word-break:break-word}
 th{background:var(--thead);color:#6a294a;font-weight:800}
 td.icon{text-align:center;font-size:1.2rem}
 td.delete-col{width:180px;text-align:right}
@@ -72,11 +72,32 @@ td.delete-col{width:180px;text-align:right}
 
 /* Focus large overlay */
 #focusOverlay{position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--bg1),var(--bg2))}
+/* keep original focus-card but tune responsiveness and sizing */
 .focus-card{background:var(--card);border:2px solid var(--border);padding:40px;border-radius:12px;box-shadow:0 12px 40px rgba(0,0,0,0.18);
   width:96vw;max-width:960px;height:80vh;display:flex;flex-direction:column;justify-content:center;align-items:center}
 #focusOverlay h1{font-size:2.4rem;color:var(--accent-dark);margin-bottom:8px}
 #focusOverlay h2{font-size:1.5rem;color:#5a3b4c;margin-bottom:12px}
 #focusOverlay p{font-size:1.1rem;color:#5a3b4c;margin-bottom:20px;text-align:center}
+
+/* BIG timer element shown in focus mode */
+.focusTimer{
+  font-weight:800;
+  font-size: clamp(2.4rem, 8vw, 6rem); /* responsive large size */
+  line-height:1;
+  color:var(--accent-dark);
+  margin: 10px 0 18px 0;
+  transition: transform .12s, color .12s, text-shadow .12s;
+  text-align:center;
+  user-select:none;
+}
+.focusTimer.urgent{
+  transform:scale(1.08);
+  color:var(--accent-strong);
+  text-shadow: 0 8px 30px rgba(138,43,226,0.12);
+}
+
+/* small/medium screen safety */
+.current.timer-running{ font-size: clamp(1.35rem, 3vw, 2.6rem); text-align:center; }
 
 /* combo (type-or-pick) */
 .combo{position:relative}
@@ -97,7 +118,20 @@ td.delete-col{width:180px;text-align:right}
 /* in-app confirm (reset) */
 #confirmOverlay{position:fixed;inset:0;z-index:10001;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.25)}
 .confirm-card{background:var(--card);border-radius:12px;padding:20px;border:2px solid var(--border);width:90%;max-width:480px;box-shadow:0 8px 24px rgba(0,0,0,0.12)}
-@media (max-width:520px){.row{flex-direction:column}.focus-card{height:90vh;padding:20px}}
+/* more responsive rules */
+@media (max-width:920px){
+  .focus-card{padding:28px;height:86vh}
+}
+@media (max-width:720px){
+  table{display:block;overflow:auto;width:100%}
+  .input{min-width:100%}
+  td.delete-col{width:auto;text-align:right}
+}
+@media (max-width:520px){
+  .row{flex-direction:column}
+  .focus-card{height:90vh;padding:20px}
+  .focusTimer{font-size: clamp(2rem, 12vw, 5rem)}
+}
 </style>
 </head>
 <body>
@@ -126,7 +160,8 @@ td.delete-col{width:180px;text-align:right}
       <input id="breakMin" type="number" min="1" step="1" value="5">
     </div>
 
-    <button class="btn" id="addBtn">Add Subject</button>
+    <!-- 1) changed text to "➕ Add" (keeps id addBtn so your JS still works) -->
+    <button class="btn" id="addBtn">➕ Add</button>
     <button class="btn secondary" id="darkModeBtn"> Dark Mode</button>
     <div class="pill">💡 Keep this tab active for best timing accuracy.</div>
   </div>
@@ -193,6 +228,10 @@ td.delete-col{width:180px;text-align:right}
   <div class="focus-card">
     <h1 id="focusHeading">📚 Study Time</h1>
     <h2 id="focusSubject">Subject: -</h2>
+
+    <!-- 2) Added explicit large timer element shown in Focus Mode -->
+    <div id="focusTimer" class="focusTimer">00:00</div>
+
     <p id="focusMsg">Stay on task — distractions are locked out!</p>
     <div class="row" style="justify-content:center;gap:12px">
       <button class="btn secondary" id="pauseFocus">Pause/Resume</button>
@@ -242,6 +281,7 @@ const focusOverlay = document.getElementById('focusOverlay');
 const focusHeading = document.getElementById('focusHeading');
 const focusSubject = document.getElementById('focusSubject');
 const focusMsg = document.getElementById('focusMsg');
+const focusTimer = document.getElementById('focusTimer'); // <- new big timer ref
 const alertSound = document.getElementById('alertSound');
 const dailySummary = document.getElementById('dailySummary');
 const dailyBar = document.getElementById('dailyBar');
@@ -285,6 +325,7 @@ function saveSubjects(){ localStorage.setItem('subjects', JSON.stringify(subject
 function saveSessionOrder(){ localStorage.setItem('sessionOrder', JSON.stringify(sessionOrder)); }
 function mins(ms){ return Math.floor(ms/60000); }
 function hrs(ms){ return (ms/3600000).toFixed(1); }
+function fmtClockFromSeconds(seconds){ if(seconds<0)seconds=0; return `${String(Math.floor(seconds/60)).padStart(2,'0')}:${String(seconds%60).padStart(2,'0')}`; }
 function fmtClock(ms){ if(ms<0)ms=0; const t=Math.floor(ms/1000); return `${String(Math.floor(t/60)).padStart(2,'0')}:${String(t%60).padStart(2,'0')}`; }
 function clamp(n,lo,hi){ return Math.max(lo,Math.min(hi,n)); }
 function getDateKey(date){ return 'studied_' + date.toISOString().slice(0,10); }
@@ -420,7 +461,7 @@ function renderPlan(){
       subjects.splice(i,1); saveSubjects(); normalizeSessionOrder(); renderPlan(); updateSummaries(); refreshRegisteredSubjects(); refreshStartSelect();
     });
 
-    // inline edit: 
+    // inline edit: (completed - Save / Cancel added)
     tr.querySelector('.editBtn').addEventListener('click', ()=>{
       const nameSpan = tr.querySelector('.subjectName');
       const plannedCell = tr.querySelector('.planned');
@@ -435,9 +476,14 @@ function renderPlan(){
       nameSpan.innerHTML = `<input type="text" value="${escapeHtml(currentName)}" style="width:92%;box-sizing:border-box">`;
       plannedCell.innerHTML = `<input type="number" value="${currentPlanned}" min="1" style="width:80px">`;
 
+      // create Save and Cancel buttons inside the delete-col for clear placement
       const saveBtn = document.createElement('button'); saveBtn.className='btn secondary saveBtn'; saveBtn.textContent='✅'; saveBtn.style.marginLeft='8px';
       const cancelBtn = document.createElement('button'); cancelBtn.className='btn secondary cancelBtn'; cancelBtn.textContent='❌'; cancelBtn.style.marginLeft='8px';
-      tr.querySelector('td.delete-col').appendChild(saveBtn); tr.querySelector('td.delete-col').appendChild(cancelBtn);
+      const actionCell = tr.querySelector('td.delete-col');
+      // clear old contents (edit/delete hidden already) then append
+      actionCell.innerHTML = '';
+      actionCell.appendChild(saveBtn);
+      actionCell.appendChild(cancelBtn);
 
       saveBtn.addEventListener('click', ()=>{
         const newName = (nameSpan.querySelector('input').value || currentName).trim();
@@ -450,10 +496,18 @@ function renderPlan(){
       });
 
       cancelBtn.addEventListener('click', ()=>{
-        nameSpan.textContent = currentName; plannedCell.textContent = currentPlanned;
-        saveBtn.remove(); cancelBtn.remove();
-        if(editBtn) editBtn.style.display='inline-block';
-        if(delBtn) delBtn.style.display='inline-block';
+        // restore previous state without saving
+        nameSpan.textContent = currentName;
+        plannedCell.textContent = currentPlanned;
+        // re-insert the edit/delete buttons so hover behavior remains consistent
+        const restoreEdit = document.createElement('button'); restoreEdit.className='btn secondary editBtn'; restoreEdit.textContent='✏️';
+        const restoreDelete = document.createElement('button'); restoreDelete.className='btn secondary deleteBtn'; restoreDelete.textContent='🗑️';
+        actionCell.innerHTML = '';
+        actionCell.appendChild(restoreEdit);
+        actionCell.appendChild(restoreDelete);
+
+        // reattach handlers for the restored buttons: (simple approach - re-renderPlan to rebind)
+        renderPlan();
       });
     });
 
@@ -497,6 +551,7 @@ function startNext(){
   durationMs = remaining; baseStudiedAtStart = item.subject.studiedMs || 0;
 
   display.textContent = `Studying ${item.subject.name} — ${fmtClock(durationMs)} remaining`;
+  display.classList.add('timer-running'); // enlarge main display while active
   focusHeading.textContent = "📚 Study Time";
   focusSubject.textContent = `Subject: ${item.subject.name}`;
   focusMsg.textContent = "Stay on task — distractions are locked out!";
@@ -513,20 +568,41 @@ function tick(item){
   const delta = now - lastTick; lastTick = now; elapsedMs += delta;
   const remain = clamp(durationMs - elapsedMs, 0, durationMs);
 
+  // use CEIL seconds to ensure the transition happens at 10s
+  const seconds = Math.ceil(remain / 1000);
+  const clockStr = fmtClockFromSeconds(seconds);
+
   if(!isBreak && item && item.subject){
     item.subject.studiedMs = clamp(baseStudiedAtStart + elapsedMs, 0, item.subject.plannedMs);
     renderPlan(); updateSummaries();
   }
 
-  if(remain <= 60000 && remain > 10000){
-    display.innerHTML = `<span class="alert">1 minute left!</span> ${isBreak ? "Break" : "Studying"} — ${fmtClock(remain)}`;
-    focusMsg.innerHTML = `<span class="alert">1 minute left!</span> ${isBreak ? "Break" : "Studying"} — ${fmtClock(remain)}`;
-  } else if(remain <= 10000){
-    display.innerHTML = `${isBreak ? "Break" : "Studying"} — <span class="warn">${fmtClock(remain)}</span>`;
-    focusMsg.innerHTML = `${isBreak ? "Break" : "Studying"} — <span class="warn">${fmtClock(remain)}</span>`;
+  // 3) Use seconds to decide when to show "1 minute left" vs urgent last-10 behaviour
+  if(seconds <= 60 && seconds > 10){
+    // between 11s and 60s inclusive: show 1 minute left message
+    display.innerHTML = `<span class="alert">1 minute left!</span> ${isBreak ? "Break" : "Studying"} — ${clockStr}`;
+    focusMsg.innerHTML = `<span class="alert">1 minute left!</span> ${isBreak ? "Break" : "Studying"} — ${clockStr}`;
+    // normal timer styling
+    if(focusTimer){
+      focusTimer.textContent = clockStr;
+      focusTimer.classList.remove('urgent');
+    }
+  } else if(seconds <= 10){
+    // urgent last 10 seconds (starts at 10)
+    display.innerHTML = `${isBreak ? "Break" : "Studying"} — <span class="warn">${clockStr}</span>`;
+    focusMsg.innerHTML = `${isBreak ? "Break" : "Studying"} — <span class="warn">${clockStr}</span>`;
+    if(focusTimer){
+      focusTimer.textContent = clockStr;
+      focusTimer.classList.add('urgent');
+    }
   } else {
-    display.textContent = `${isBreak ? "Break" : "Studying"} — ${fmtClock(remain)} remaining`;
-    focusMsg.textContent = `${isBreak ? "Break" : "Studying"} — ${fmtClock(remain)} remaining`;
+    // more than 60 seconds remaining (or normal state)
+    display.textContent = `${isBreak ? "Break" : "Studying"} — ${clockStr} remaining`;
+    focusMsg.textContent = `${isBreak ? "Break" : "Studying"} — ${clockStr} remaining`;
+    if(focusTimer){
+      focusTimer.textContent = clockStr;
+      focusTimer.classList.remove('urgent');
+    }
   }
 
   if(elapsedMs >= durationMs){
@@ -540,6 +616,7 @@ function tick(item){
     } else {
       focusOverlay.style.display = 'none';
       display.textContent = '🎉 Break complete!';
+      display.classList.remove('timer-running');
       currentSubject = null;
       if(skipBreakBtn) skipBreakBtn.style.display='none';
       if(skipBreakFocusBtn) skipBreakFocusBtn.style.display='none';
@@ -561,6 +638,7 @@ function startBreak(){
   if(skipBreakBtn) skipBreakBtn.style.display = 'inline-block';
   if(skipBreakFocusBtn) skipBreakFocusBtn.style.display = 'inline-block';
 
+  display.classList.add('timer-running'); // show larger display also for break
   renderPlan();
   timerId = setInterval(()=>tick({}),200);
 }
@@ -620,6 +698,7 @@ document.getElementById('pauseBtn').addEventListener('click', ()=>{
 document.getElementById('endBtn').addEventListener('click', ()=>{
   stopTimer(); alertSound.play();
   display.textContent = '⏹️ Session ended.';
+  display.classList.remove('timer-running');
   focusOverlay.style.display = 'none';
   isBreak = false; currentSubject = null;
   saveSubjects(); renderPlan(); updateSummaries();
@@ -641,6 +720,7 @@ saveSessionBtn.addEventListener('click', ()=>{
   localStorage.setItem('savedSessions', JSON.stringify(saved));
   // feedback
   display.textContent = '✅ Session saved.';
+  display.classList.remove('timer-running');
   // show main controls back so user can start new session if they want
   mainControls.style.display = 'flex';
   endedControls.style.display = 'none';
@@ -652,6 +732,7 @@ startNewBtn.addEventListener('click', ()=>{
   stopTimer();
   idx = -1; timerId = null; isBreak = false; currentSubject = null; paused = false;
   display.textContent = 'No task running.';
+  display.classList.remove('timer-running');
   focusOverlay.style.display = 'none';
   mainControls.style.display = 'flex';
   endedControls.style.display = 'none';
@@ -666,7 +747,7 @@ confirmOk.addEventListener('click', ()=>{
   subjects = []; saveSubjects(); renderPlan();
   for(let i=0;i<7;i++){ const d=new Date(); d.setDate(d.getDate()-i); localStorage.removeItem(getDateKey(d)); }
   localStorage.removeItem('weeklyGoalHours'); localStorage.removeItem('sessionOrder');
-  stopTimer(); display.textContent = 'No task running.'; focusOverlay.style.display = 'none';
+  stopTimer(); display.textContent = 'No task running.'; display.classList.remove('timer-running'); focusOverlay.style.display = 'none';
   updateSummaries(); alert('Tracker cleared.');
 });
 
@@ -683,7 +764,7 @@ function handleSkipBreak(){
   if(skipBreakBtn) skipBreakBtn.style.display='none';
   if(skipBreakFocusBtn) skipBreakFocusBtn.style.display='none';
   if(idx + 1 < queue.length){ startNext(); }
-  else { display.textContent = '⏹️ Session ended.'; focusOverlay.style.display = 'none'; currentSubject = null; renderPlan(); updateSummaries(); }
+  else { display.textContent = '⏹️ Session ended.'; display.classList.remove('timer-running'); focusOverlay.style.display = 'none'; currentSubject = null; renderPlan(); updateSummaries(); }
 }
 skipBreakBtn.addEventListener('click', handleSkipBreak);
 skipBreakFocusBtn.addEventListener('click', handleSkipBreak);
