@@ -3,6 +3,7 @@
 A minimal, clean, distraction-free study tracker created by **Maila Mudasser**.
 
 [🌐 Live Demo](https://mailamudasser1-ops.github.io/Study-Tracker/)  
+
 ![License](https://img.shields.io/badge/license-MIT-green)
 
 ---
