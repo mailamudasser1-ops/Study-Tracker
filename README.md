@@ -35,18 +35,6 @@ A minimal, clean, distraction-free study tracker created by **Maila Mudasser**.
 
 ---
 
-## Quick Start
-
-```bash
-git clone https://github.com/mailamudasser1-ops/Study-Tracker.git
-```
-
-```bash
-open index.html
-```
-
----
-
 ## License
 MIT © **Maila Mudasser**
 
