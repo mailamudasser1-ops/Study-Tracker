@@ -9,7 +9,8 @@ A minimal, clean, distraction-free study tracker created by **Maila Mudasser**.
 ---
 
 ## Preview
-![Study Tracker Preview](./assets/screenshot.png)
+
+![Study Tracker Screenshot](./screenshot.png)
 
 ---
 
@@ -36,19 +37,13 @@ A minimal, clean, distraction-free study tracker created by **Maila Mudasser**.
 
 ## Quick Start
 
-Clone the repository:
-
 ```bash
 git clone https://github.com/mailamudasser1-ops/Study-Tracker.git
 ```
 
-Open the project:
-
 ```bash
 open index.html
 ```
-
-(or double-click the file)
 
 ---
 
