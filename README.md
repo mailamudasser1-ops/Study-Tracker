@@ -1,6 +1,5 @@
-# 📚 Study Tracker
-
-A minimal, clean, distraction-free study tracker created by **Maila Mudasser**.
+# ⌛ Study Tracker
+A minimal user friendly study tracker designed to fit your habits, not the other way around built with real-time timers, focus mode and flexible session management to solve common frustrations.
 
 [🌐 Live Demo](https://mailamudasser1-ops.github.io/Study-Tracker/)  
 
@@ -13,7 +12,6 @@ A minimal, clean, distraction-free study tracker created by **Maila Mudasser**.
 ![Study Tracker Screenshot](./screenshot.png)
 
 ---
-
 ## Features
 - Task lists (add / remove)
 - Focus mode timer
