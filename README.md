@@ -7,6 +7,11 @@ A minimal user friendly study tracker designed to fit your habits not the other 
 ![License](https://img.shields.io/badge/license-MIT-green)
 
 ---
+## About the Creator
+
+Built by **Maila Mudasser**, a self-driven learner and problem-solver who loves designing tools that truly work for real habits. This project reflects a combination of **technical skill, trial-and-error problem solving and user-centered design thinking** all aimed at making studying smoother, more efficient and stress-free.  
+
+Every feature comes from personal experience: the frustrations faced while studying, the small obstacles that interrupt focus, and the desire for a simple yet flexible tool.
 
 ## Preview
 
