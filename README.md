@@ -1,6 +1,7 @@
 # ⌛ Study Tracker
 
-A minimal user friendly study tracker designed to fit your habits not the other way around. Built with real-time timers, focus mode and flexible session management to solve common frustrations and make studying more effective.
+A minimal, user-friendly study tracker designed to match real study habits. Every feature addresses challenges I personally faced from broken timers to inflexible tables so others can study smarter not harder.  
+Built with **real-time timers, focus mode, flexible session management and a clean intuitive design**.
 
 [🌐 Live Demo](https://mailamudasser1-ops.github.io/Study-Tracker/)  
 
