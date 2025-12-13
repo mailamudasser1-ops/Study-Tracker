@@ -79,6 +79,7 @@ Key frustrations I solved:
 
 ## License
 
-MIT © **Maila Mudasser**
+MIT © 
+**Maila Mudasser**
 
 
