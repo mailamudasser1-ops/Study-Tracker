@@ -70,19 +70,15 @@ td.delete-col{width:180px;text-align:right}
 .warn{color:var(--accent-dark);font-weight:800;font-size:1.4rem}
 .alert{color:var(--accent);font-weight:700}
 
-/* Focus large overlay */
 #focusOverlay{position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--bg1),var(--bg2))}
-/* keep original focus-card but tune responsiveness and sizing */
 .focus-card{background:var(--card);border:2px solid var(--border);padding:40px;border-radius:12px;box-shadow:0 12px 40px rgba(0,0,0,0.18);
   width:96vw;max-width:960px;height:80vh;display:flex;flex-direction:column;justify-content:center;align-items:center}
 #focusOverlay h1{font-size:2.4rem;color:var(--accent-dark);margin-bottom:8px}
 #focusOverlay h2{font-size:1.5rem;color:#5a3b4c;margin-bottom:12px}
 #focusOverlay p{font-size:1.1rem;color:#5a3b4c;margin-bottom:20px;text-align:center}
-
-/* BIG timer element shown in focus mode */
 .focusTimer{
   font-weight:800;
-  font-size: clamp(2.4rem, 8vw, 6rem); /* responsive large size */
+  font-size: clamp(2.4rem, 8vw, 6rem); 
   line-height:1;
   color:var(--accent-dark);
   margin: 10px 0 18px 0;
@@ -96,29 +92,24 @@ td.delete-col{width:180px;text-align:right}
   text-shadow: 0 8px 30px rgba(138,43,226,0.12);
 }
 
-/* small/medium screen safety */
 .current.timer-running{ font-size: clamp(1.35rem, 3vw, 2.6rem); text-align:center; }
 
-/* combo (type-or-pick) */
 .combo{position:relative}
-.combo input{padding-right:40px} /* reserve space for toggle */
+.combo input{padding-right:40px} 
 .combo .combo-toggle{position:absolute;right:6px;top:7px;padding:6px 8px;border-radius:8px;cursor:pointer;font-weight:700;background:transparent;border:none;color:var(--accent-dark)}
 .combo-list{position:absolute;left:0;right:0;top:calc(100% + 8px);z-index:1100;list-style:none;margin:0;padding:6px;border-radius:8px;border:2px solid var(--border);
   background:var(--card);box-shadow:0 6px 18px rgba(0,0,0,0.08);max-height:220px;overflow:auto;display:none}
 .combo-list li{padding:8px;border-radius:8px;cursor:pointer}
 .combo-list li:hover{background:var(--thead)}
 
-/* Order overlay */
 #orderOverlay{position:fixed;inset:0;z-index:10000;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.25)}
 .order-card{background:var(--card);border-radius:12px;padding:18px;border:2px solid var(--border);width:92%;max-width:640px;box-shadow:0 10px 30px rgba(0,0,0,0.12)}
 .order-list{list-style:none;padding:8px;margin:12px 0;max-height:340px;overflow:auto}
 .order-list li{display:flex;align-items:center;justify-content:space-between;padding:8px;border-radius:8px;border:1px solid #f3e6fb;margin-bottom:8px}
 .order-controls button{margin-left:6px}
 
-/* in-app confirm (reset) */
 #confirmOverlay{position:fixed;inset:0;z-index:10001;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.25)}
 .confirm-card{background:var(--card);border-radius:12px;padding:20px;border:2px solid var(--border);width:90%;max-width:480px;box-shadow:0 8px 24px rgba(0,0,0,0.12)}
-/* more responsive rules */
 @media (max-width:920px){
   .focus-card{padding:28px;height:86vh}
 }
@@ -140,7 +131,6 @@ td.delete-col{width:180px;text-align:right}
   <p class="subtle">Plan your subjects and track your study time with precision.</p>
 
   <div class="row">
-    <!-- combo input (type OR pick). Arrow toggles the suggestion list; adjusted padding avoids overlap -->
     <div class="input" style="min-width:280px">
       <label for="subject">Subject</label>
       <div class="combo">
@@ -160,7 +150,7 @@ td.delete-col{width:180px;text-align:right}
       <input id="breakMin" type="number" min="1" step="1" value="5">
     </div>
 
-    <!-- 1) changed text to "➕ Add" (keeps id addBtn so your JS still works) -->
+    
     <button class="btn" id="addBtn">➕ Add</button>
     <button class="btn secondary" id="darkModeBtn"> Dark Mode</button>
     <div class="pill">💡 Keep this tab active for best timing accuracy.</div>
@@ -194,7 +184,6 @@ td.delete-col{width:180px;text-align:right}
   <div class="section">
     <h2>Current Task</h2>
 
-    <!-- Top line: Start-with + Arrange only (single neat line) -->
     <div class="row" style="margin-bottom:8px; align-items:center;">
       <label for="startSelect" style="align-self:center;color:var(--accent-dark);margin-right:8px">Start with:</label>
       <select id="startSelect" style="border:1px solid #ffd1e6;border-radius:10px;padding:6px 8px;min-width:240px">
@@ -203,7 +192,6 @@ td.delete-col{width:180px;text-align:right}
       <button id="arrangeBtn" class="btn secondary" style="margin-left:8px">Arrange Order</button>
     </div>
 
-    <!-- Second line: real controls (skip, start, pause, end, refresh, focus) -->
     <div class="row controls" id="mainControls" style="margin-bottom:10px">
       <button id="skipBreakBtn" class="btn secondary" style="display:none">Skip Break</button>
       <button class="btn" id="startBtn">Start Session</button>
@@ -213,7 +201,6 @@ td.delete-col{width:180px;text-align:right}
       <button class="btn" id="focusBtn">Focus Mode</button>
     </div>
 
-    <!-- Once ended: only these two appear -->
     <div class="row" id="endedControls" style="display:none; gap:10px; margin-bottom:10px;">
       <button id="saveSessionBtn" class="btn">Save Session</button>
       <button id="startNewBtn" class="btn secondary">Start New Session</button>
@@ -223,13 +210,10 @@ td.delete-col{width:180px;text-align:right}
   </div>
 </div>
 
-<!-- Focus overlay -->
 <div id="focusOverlay">
   <div class="focus-card">
     <h1 id="focusHeading">📚 Study Time</h1>
     <h2 id="focusSubject">Subject: -</h2>
-
-    <!-- 2) Added explicit large timer element shown in Focus Mode -->
     <div id="focusTimer" class="focusTimer">00:00</div>
 
     <p id="focusMsg">Stay on task — distractions are locked out!</p>
@@ -240,8 +224,7 @@ td.delete-col{width:180px;text-align:right}
     </div>
   </div>
 </div>
-
-<!-- Arrange order overlay -->
+  
 <div id="orderOverlay">
   <div class="order-card">
     <h2>Arrange Session Order</h2>
@@ -255,7 +238,6 @@ td.delete-col{width:180px;text-align:right}
   </div>
 </div>
 
-<!-- In-app confirm for Refresh Tracker -->
 <div id="confirmOverlay">
   <div class="confirm-card">
     <h3 style="margin-bottom:8px;color:var(--accent-dark)">Clear all data?</h3>
@@ -270,7 +252,6 @@ td.delete-col{width:180px;text-align:right}
 <audio id="alertSound" src="https://www.soundjay.com/buttons/sounds/button-16.mp3" preload="auto"></audio>
 
 <script>
-// ----- data and refs -----
 let subjects = JSON.parse(localStorage.getItem('subjects')) || [];
 let weeklyGoalHours = parseInt(localStorage.getItem('weeklyGoalHours'),10) || 25;
 let sessionOrder = JSON.parse(localStorage.getItem('sessionOrder') || 'null');
@@ -281,7 +262,7 @@ const focusOverlay = document.getElementById('focusOverlay');
 const focusHeading = document.getElementById('focusHeading');
 const focusSubject = document.getElementById('focusSubject');
 const focusMsg = document.getElementById('focusMsg');
-const focusTimer = document.getElementById('focusTimer'); // <- new big timer ref
+const focusTimer = document.getElementById('focusTimer'); 
 const alertSound = document.getElementById('alertSound');
 const dailySummary = document.getElementById('dailySummary');
 const dailyBar = document.getElementById('dailyBar');
@@ -320,7 +301,6 @@ let startTime = 0, lastTick = 0, durationMs = 0, elapsedMs = 0, paused = false, 
 let breakDurationMs = 5 * 60000;
 let isBreak = false, currentSubject = null;
 
-// ----- utilities -----
 function saveSubjects(){ localStorage.setItem('subjects', JSON.stringify(subjects)); }
 function saveSessionOrder(){ localStorage.setItem('sessionOrder', JSON.stringify(sessionOrder)); }
 function mins(ms){ return Math.floor(ms/60000); }
@@ -332,10 +312,9 @@ function getDateKey(date){ return 'studied_' + date.toISOString().slice(0,10); }
 function getTodayKey(){ return getDateKey(new Date()); }
 function escapeHtml(str){ return String(str).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
 
-// defaults
+
 const defaultSubjects = ['Math','Physics','Chemistry','Biology','English','History','Computer Science','Economics','Art','Music','Philosophy','Psychology'];
 
-// ----- session order helpers -----
 function normalizeSessionOrder(){
   const n = subjects.length;
   if(!Array.isArray(sessionOrder)){
@@ -348,7 +327,6 @@ function normalizeSessionOrder(){
   saveSessionOrder();
 }
 
-// ----- suggestion list (combo) -----
 function refreshRegisteredSubjects(){
   const set = new Set(defaultSubjects.map(x=>x.trim()).filter(Boolean));
   subjects.forEach(s => { if(s.name && s.name.trim()) set.add(s.name.trim()); });
@@ -361,7 +339,7 @@ function refreshRegisteredSubjects(){
   });
 }
 subjectToggle.addEventListener('click', (e)=>{ e.stopPropagation(); if(subjectList.style.display==='block') subjectList.style.display='none'; else subjectList.style.display='block'; });
-subjectInput.addEventListener('input', ()=>{ // live filter
+subjectInput.addEventListener('input', ()=>{ 
   const q = (subjectInput.value || '').toLowerCase();
   const items = Array.from(subjectList.children);
   let any=false;
@@ -372,7 +350,6 @@ subjectInput.addEventListener('input', ()=>{ // live filter
 });
 document.addEventListener('click',(e)=>{ if(!document.querySelector('.combo')?.contains(e.target)) subjectList.style.display='none'; });
 
-// ----- start select refresh -----
 function refreshStartSelect(){
   startSelect.innerHTML = '';
   const def = document.createElement('option'); def.value = ''; def.textContent = '(Use arranged order)'; startSelect.appendChild(def);
@@ -386,7 +363,6 @@ function refreshStartSelect(){
   });
 }
 
-// ----- order overlay -----
 function renderOrderList(){
   orderList.innerHTML = '';
   normalizeSessionOrder();
@@ -412,7 +388,6 @@ orderCancel.addEventListener('click', ()=>{ orderOverlay.style.display='none'; r
 orderSave.addEventListener('click', ()=>{ saveSessionOrder(); orderOverlay.style.display='none'; refreshStartSelect(); });
 orderReset.addEventListener('click', ()=>{ sessionOrder = subjects.map((_,i)=>i); renderOrderList(); });
 
-// ----- render table with inline edit (✅/❌) -----
 function renderPlan(){
   normalizeSessionOrder();
   planBody.innerHTML = '';
@@ -456,12 +431,11 @@ function renderPlan(){
       if(a) a.style.display='none'; if(b) b.style.display='none';
     });
 
-    // delete
+
     tr.querySelector('.deleteBtn').addEventListener('click', ()=>{
       subjects.splice(i,1); saveSubjects(); normalizeSessionOrder(); renderPlan(); updateSummaries(); refreshRegisteredSubjects(); refreshStartSelect();
     });
 
-    // inline edit: (completed - Save / Cancel added)
     tr.querySelector('.editBtn').addEventListener('click', ()=>{
       const nameSpan = tr.querySelector('.subjectName');
       const plannedCell = tr.querySelector('.planned');
@@ -475,12 +449,10 @@ function renderPlan(){
 
       nameSpan.innerHTML = `<input type="text" value="${escapeHtml(currentName)}" style="width:92%;box-sizing:border-box">`;
       plannedCell.innerHTML = `<input type="number" value="${currentPlanned}" min="1" style="width:80px">`;
-
-      // create Save and Cancel buttons inside the delete-col for clear placement
       const saveBtn = document.createElement('button'); saveBtn.className='btn secondary saveBtn'; saveBtn.textContent='✅'; saveBtn.style.marginLeft='8px';
       const cancelBtn = document.createElement('button'); cancelBtn.className='btn secondary cancelBtn'; cancelBtn.textContent='❌'; cancelBtn.style.marginLeft='8px';
       const actionCell = tr.querySelector('td.delete-col');
-      // clear old contents (edit/delete hidden already) then append
+    
       actionCell.innerHTML = '';
       actionCell.appendChild(saveBtn);
       actionCell.appendChild(cancelBtn);
@@ -496,24 +468,22 @@ function renderPlan(){
       });
 
       cancelBtn.addEventListener('click', ()=>{
-        // restore previous state without saving
+    
         nameSpan.textContent = currentName;
         plannedCell.textContent = currentPlanned;
-        // re-insert the edit/delete buttons so hover behavior remains consistent
+       
         const restoreEdit = document.createElement('button'); restoreEdit.className='btn secondary editBtn'; restoreEdit.textContent='✏️';
         const restoreDelete = document.createElement('button'); restoreDelete.className='btn secondary deleteBtn'; restoreDelete.textContent='🗑️';
         actionCell.innerHTML = '';
         actionCell.appendChild(restoreEdit);
         actionCell.appendChild(restoreDelete);
 
-        // reattach handlers for the restored buttons: (simple approach - re-renderPlan to rebind)
         renderPlan();
       });
     });
 
   });
 
-  // running highlight
   document.querySelectorAll('.progress-bar').forEach(pb => pb.classList.remove('running'));
   if(currentSubject){
     const ii = subjects.indexOf(currentSubject);
@@ -529,7 +499,6 @@ function renderPlan(){
   renderOrderList();
 }
 
-// ----- queue & timer  -----
 function buildQueue(){
   normalizeSessionOrder();
   queue = sessionOrder.map(origIdx => ({ kind:'study', subject: subjects[origIdx], origIndex: origIdx }));
@@ -551,7 +520,7 @@ function startNext(){
   durationMs = remaining; baseStudiedAtStart = item.subject.studiedMs || 0;
 
   display.textContent = `Studying ${item.subject.name} — ${fmtClock(durationMs)} remaining`;
-  display.classList.add('timer-running'); // enlarge main display while active
+  display.classList.add('timer-running'); 
   focusHeading.textContent = "📚 Study Time";
   focusSubject.textContent = `Subject: ${item.subject.name}`;
   focusMsg.textContent = "Stay on task — distractions are locked out!";
@@ -568,7 +537,6 @@ function tick(item){
   const delta = now - lastTick; lastTick = now; elapsedMs += delta;
   const remain = clamp(durationMs - elapsedMs, 0, durationMs);
 
-  // use CEIL seconds to ensure the transition happens at 10s
   const seconds = Math.ceil(remain / 1000);
   const clockStr = fmtClockFromSeconds(seconds);
 
@@ -577,18 +545,18 @@ function tick(item){
     renderPlan(); updateSummaries();
   }
 
-  // 3) Use seconds to decide when to show "1 minute left" vs urgent last-10 behaviour
+ 
   if(seconds <= 60 && seconds > 10){
-    // between 11s and 60s inclusive: show 1 minute left message
+   
     display.innerHTML = `<span class="alert">1 minute left!</span> ${isBreak ? "Break" : "Studying"} — ${clockStr}`;
     focusMsg.innerHTML = `<span class="alert">1 minute left!</span> ${isBreak ? "Break" : "Studying"} — ${clockStr}`;
-    // normal timer styling
+   
     if(focusTimer){
       focusTimer.textContent = clockStr;
       focusTimer.classList.remove('urgent');
     }
   } else if(seconds <= 10){
-    // urgent last 10 seconds (starts at 10)
+
     display.innerHTML = `${isBreak ? "Break" : "Studying"} — <span class="warn">${clockStr}</span>`;
     focusMsg.innerHTML = `${isBreak ? "Break" : "Studying"} — <span class="warn">${clockStr}</span>`;
     if(focusTimer){
@@ -596,7 +564,7 @@ function tick(item){
       focusTimer.classList.add('urgent');
     }
   } else {
-    // more than 60 seconds remaining (or normal state)
+ 
     display.textContent = `${isBreak ? "Break" : "Studying"} — ${clockStr} remaining`;
     focusMsg.textContent = `${isBreak ? "Break" : "Studying"} — ${clockStr} remaining`;
     if(focusTimer){
@@ -638,12 +606,11 @@ function startBreak(){
   if(skipBreakBtn) skipBreakBtn.style.display = 'inline-block';
   if(skipBreakFocusBtn) skipBreakFocusBtn.style.display = 'inline-block';
 
-  display.classList.add('timer-running'); // show larger display also for break
+  display.classList.add('timer-running'); 
   renderPlan();
   timerId = setInterval(()=>tick({}),200);
 }
 
-// ----- summaries -----
 function updateSummaries(){
   const plannedDayMs = subjects.reduce((acc,s)=>acc + (s.plannedMs || 0), 0);
   const studiedDayMs = subjects.reduce((acc,s)=>acc + (s.studiedMs || 0), 0);
@@ -660,8 +627,6 @@ function updateSummaries(){
   weeklyBar.style.width = Math.min(100,pctWeek) + '%';
 }
 
-// ----- UI events -----
-// Add subject
 document.getElementById('addBtn').addEventListener('click', ()=>{
   const name = (subjectInput.value || '').trim();
   const planned = parseInt(document.getElementById('planned').value,10);
@@ -672,7 +637,6 @@ document.getElementById('addBtn').addEventListener('click', ()=>{
   saveSubjects(); normalizeSessionOrder(); renderPlan(); updateSummaries();
 });
 
-// START: uses startSelect to pick starting origIndex 
 document.getElementById('startBtn').addEventListener('click', ()=>{
   if(subjects.length === 0){ alert('Add at least one subject'); return; }
   buildQueue();
@@ -684,17 +648,15 @@ document.getElementById('startBtn').addEventListener('click', ()=>{
   }
   idx = (startPos >= 0) ? (startPos - 1) : -1;
   startNext();
-  // ensure endedControls are hidden
+
   endedControls.style.display = 'none';
   mainControls.style.display = 'flex';
 });
 
-// Pause/resume
 document.getElementById('pauseBtn').addEventListener('click', ()=>{
   paused = !paused; document.getElementById('pauseBtn').textContent = paused ? 'Resume' : 'Pause'; if(!paused) lastTick = Date.now();
 });
 
-// END SESSION: hide main controls, show Save / Start New 
 document.getElementById('endBtn').addEventListener('click', ()=>{
   stopTimer(); alertSound.play();
   display.textContent = '⏹️ Session ended.';
@@ -703,12 +665,10 @@ document.getElementById('endBtn').addEventListener('click', ()=>{
   isBreak = false; currentSubject = null;
   saveSubjects(); renderPlan(); updateSummaries();
 
-  // hide main controls, show ended controls
   mainControls.style.display = 'none';
   endedControls.style.display = 'flex';
 });
 
-// SAVE SESSION: snapshot store (localStorage array)
 saveSessionBtn.addEventListener('click', ()=>{
   const saved = JSON.parse(localStorage.getItem('savedSessions') || '[]');
   const snapshot = {
@@ -718,17 +678,13 @@ saveSessionBtn.addEventListener('click', ()=>{
   };
   saved.push(snapshot);
   localStorage.setItem('savedSessions', JSON.stringify(saved));
-  // feedback
   display.textContent = '✅ Session saved.';
   display.classList.remove('timer-running');
-  // show main controls back so user can start new session if they want
   mainControls.style.display = 'flex';
   endedControls.style.display = 'none';
 });
 
-// START NEW SESSION (after ending)
 startNewBtn.addEventListener('click', ()=>{
-  // reset state indices (but keep subjects)
   stopTimer();
   idx = -1; timerId = null; isBreak = false; currentSubject = null; paused = false;
   display.textContent = 'No task running.';
@@ -739,7 +695,6 @@ startNewBtn.addEventListener('click', ()=>{
   renderPlan(); updateSummaries();
 });
 
-// RESET / Refresh Tracker: open in-app  
 document.getElementById('resetBtn').addEventListener('click', ()=>{ confirmOverlay.style.display = 'flex'; });
 confirmCancel.addEventListener('click', ()=>{ confirmOverlay.style.display = 'none'; });
 confirmOk.addEventListener('click', ()=>{
@@ -751,12 +706,10 @@ confirmOk.addEventListener('click', ()=>{
   updateSummaries(); alert('Tracker cleared.');
 });
 
-// Focus overlay controls
 document.getElementById('focusBtn').addEventListener('click', ()=>{ focusOverlay.style.display = 'flex'; });
 document.getElementById('exitFocus').addEventListener('click', ()=>{ focusOverlay.style.display = 'none'; });
 document.getElementById('pauseFocus').addEventListener('click', ()=>{ paused = !paused; document.getElementById('pauseBtn').textContent = paused ? 'Resume' : 'Pause'; if(!paused) lastTick = Date.now(); });
 
-// Shared Skip Break handler 
 function handleSkipBreak(){
   if(!isBreak) return;
   stopTimer();
@@ -769,22 +722,19 @@ function handleSkipBreak(){
 skipBreakBtn.addEventListener('click', handleSkipBreak);
 skipBreakFocusBtn.addEventListener('click', handleSkipBreak);
 
-// dark mode
+
 const darkModeBtn = document.getElementById('darkModeBtn');
 const isDark = localStorage.getItem('darkMode') === 'true';
 if(isDark){ document.body.classList.add('dark'); darkModeBtn.textContent = '🌖'; } else darkModeBtn.textContent = '🌒';
 darkModeBtn.addEventListener('click', ()=>{ document.body.classList.toggle('dark'); const active=document.body.classList.contains('dark'); localStorage.setItem('darkMode', active); darkModeBtn.textContent = active ? '🌖' : '🌒'; });
 
-// weekly goal save
 document.getElementById('saveWeeklyBtn').addEventListener('click', ()=>{ const val = parseFloat(weeklyGoalInput.value); if(!val || val<=0){ alert('Enter a valid weekly hours goal'); return; } weeklyGoalHours = val; localStorage.setItem('weeklyGoalHours', weeklyGoalHours); updateSummaries(); alert('Weekly goal saved.'); });
 
-// ----- initial setup -----
 normalizeSessionOrder();
 renderPlan();
 updateSummaries();
 setInterval(updateSummaries, 60000);
 
-// populate initial suggestions
 refreshRegisteredSubjects();
 
 </script>
