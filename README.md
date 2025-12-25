@@ -1,6 +1,6 @@
 # ⌛ Study Tracker
 
-A user-focused study tracker built to match real world study habits reliably. Features include a real time timer with accurate pause/resume logic, dynamic subject table operations (CRUD + reordering) and a distraction minimizing focus mode.
+A user focused study tracker built to match real world study habits reliably. Features include a real time timer with accurate pause/resume logic, dynamic subject table operations (CRUD + reordering) and a distraction minimizing focus mode.
 
 **Technical challenge:** managing session state and timers without drift, ensuring consistent behavior across all user interactions. Developed iteratively using HTML, CSS and JavaScript, combining usability with robust logic.
 
